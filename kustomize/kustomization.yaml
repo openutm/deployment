@@ -5,6 +5,7 @@ namespace: blender
 
 generatorOptions:
   disableNameSuffixHash: true # this flag is used to avoid creation of new configmap, instead it will be modified when file context is changed
+
 configMapGenerator:
   - name: redis-config
     files:
@@ -13,9 +14,13 @@ configMapGenerator:
     envs:
       - .env
 
+secretGenerator:
+  - name: env-secrets
+    envs:
+      - .env
+
 resources:
   - resources/namespace.yaml
-  # - resources/env.yaml
   - resources/web.yaml
   - resources/web-service.yaml
   - resources/worker.yaml

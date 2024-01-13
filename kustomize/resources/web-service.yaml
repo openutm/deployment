@@ -1,7 +1,4 @@
 ---
-##################################################################################################
-# Blender service
-##################################################################################################
 apiVersion: v1
 kind: Service
 metadata:
@@ -12,9 +9,9 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - port: 8000
-    name: http
-    targetPort: 8000
+    - port: 8000
+      name: http
+      targetPort: 8000
   selector:
     app: web
 ---

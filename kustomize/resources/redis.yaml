@@ -31,9 +31,9 @@ spec:
           env:
             - name: REDIS_PASSWORD
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
+                  name: env-secrets
                   key: REDIS_PASSWORD
-                  name: env
           volumeMounts:
             - mountPath: /redis-config
               name: config
