@@ -1,0 +1,136 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  labels:
+    app: web
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+      version: v1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: web
+        version: v1
+    spec:
+      serviceAccountName: blender-web
+      containers:
+        - args:
+            - ./entrypoint.sh
+          name: web
+          image: registry.digitalocean.com/utmtest/flight-blender:1705080249
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          securityContext:
+            runAsUser: 1000
+          resources: {}
+          env:
+            - name: BLENDER_FQDN
+              valueFrom:
+                configMapKeyRef:
+                  key: BLENDER_FQDN
+                  name: env
+            - name: BYPASS_AUTH_TOKEN_VERIFICATION
+              valueFrom:
+                configMapKeyRef:
+                  key: BYPASS_AUTH_TOKEN_VERIFICATION
+                  name: env
+            - name: DATABASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: DATABASE_URL
+                  name: env
+            - name: FLIGHT_SPOTLIGHT_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: FLIGHT_SPOTLIGHT_URL
+                  name: env
+            - name: HEARTBEAT_RATE_SECS
+              valueFrom:
+                configMapKeyRef:
+                  key: HEARTBEAT_RATE_SECS
+                  name: env
+            - name: IS_DEBUG
+              valueFrom:
+                configMapKeyRef:
+                  key: IS_DEBUG
+                  name: env
+            - name: PASSPORT_AUDIENCE
+              valueFrom:
+                configMapKeyRef:
+                  key: PASSPORT_AUDIENCE
+                  name: env
+            - name: PASSPORT_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  key: PASSPORT_DOMAIN
+                  name: env
+            - name: PASSPORT_TOKEN_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: PASSPORT_TOKEN_URL
+                  name: env
+            - name: PASSPORT_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: PASSPORT_URL
+                  name: env
+            - name: PGDATA
+              valueFrom:
+                configMapKeyRef:
+                  key: PGDATA
+                  name: env
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_DB
+                  name: env
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_HOST
+                  name: env
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: env
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_USER
+                  name: env
+            - name: REDIS_BROKER_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_BROKER_URL
+                  name: env
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_HOST
+                  name: env
+            - name: REDIS_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_PASSWORD
+                  name: env
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_PORT
+                  name: env
+            - name: SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: SECRET_KEY
+                  name: env
+      imagePullSecrets:
+        - name: registry-utmtest

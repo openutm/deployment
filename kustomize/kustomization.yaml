@@ -1,0 +1,26 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: blender
+
+generatorOptions:
+  disableNameSuffixHash: true # this flag is used to avoid creation of new configmap, instead it will be modified when file context is changed
+configMapGenerator:
+  - name: redis-config
+    files:
+      - redis.conf
+  - name: env
+    envs:
+      - .env
+
+resources:
+  - resources/namespace.yaml
+  # - resources/env.yaml
+  - resources/web.yaml
+  - resources/web-service.yaml
+  - resources/worker.yaml
+  - resources/db.yaml
+  - resources/db-pvc.yaml
+  - resources/db-service.yaml
+  - resources/redis.yaml
+  - resources/redis-service.yaml

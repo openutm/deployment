@@ -1,0 +1,27 @@
+---
+##################################################################################################
+# Blender service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  labels:
+    app: web
+    service: web
+spec:
+  type: NodePort
+  ports:
+  - port: 8000
+    name: http
+    targetPort: 8000
+  selector:
+    app: web
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: blender-web
+  labels:
+    account: web
+---
