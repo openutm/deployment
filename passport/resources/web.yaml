@@ -29,7 +29,8 @@ spec:
           ports:
             - containerPort: 9000
           securityContext:
-            runAsUser: 1000
+            runAsUser: 10000
+            runAsGroup: 10000
           resources: {}
           env:
             - name: BLENDER_FQDN
@@ -141,6 +142,11 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: DJANGO_SUPERUSER_PASSWORD
+                  name: env-secrets
+            - name: SHOW_ADMIN
+              valueFrom:
+                secretKeyRef:
+                  key: SHOW_ADMIN
                   name: env-secrets
       imagePullSecrets:
         - name: registry-utmtest
