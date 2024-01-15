@@ -1,137 +1,128 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: worker
+  name: web
   labels:
-    app: worker
+    app: web
     version: v1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: worker
+      app: web
       version: v1
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
-        app: worker
+        app: web
         version: v1
     spec:
-      serviceAccountName: blender-web
+      serviceAccountName: spotlight-web
       containers:
         - args:
-            - "celery"
-            - "--app=flight_blender"
-            - "worker"
-            - "--loglevel=info"
-          name: worker
-          image: flight-blender
+            - npm
+            - start
+          name: web
+          image: flight-spotlight
           # imagePullPolicy: IfNotPresent
-          # ports:
-          #   - containerPort: 8000
-          securityContext:
-            runAsUser: 1000
+          ports:
+            - containerPort: 5000
+          # securityContext:
+          #   runAsUser: 10000
+          #   runAsGroup: 10000
           resources: {}
           env:
-            - name: BLENDER_FQDN
-              valueFrom:
-                configMapKeyRef:
-                  key: BLENDER_FQDN
-                  name: env
-            - name: BYPASS_AUTH_TOKEN_VERIFICATION
-              valueFrom:
-                configMapKeyRef:
-                  key: BYPASS_AUTH_TOKEN_VERIFICATION
-                  name: env
-            - name: DATABASE_URL
-              valueFrom:
-                configMapKeyRef:
-                  key: DATABASE_URL
-                  name: env
-            - name: FLIGHT_SPOTLIGHT_URL
-              valueFrom:
-                configMapKeyRef:
-                  key: FLIGHT_SPOTLIGHT_URL
-                  name: env
-            - name: HEARTBEAT_RATE_SECS
-              valueFrom:
-                configMapKeyRef:
-                  key: HEARTBEAT_RATE_SECS
-                  name: env
-            - name: IS_DEBUG
-              valueFrom:
-                configMapKeyRef:
-                  key: IS_DEBUG
-                  name: env
-            - name: PASSPORT_AUDIENCE
-              valueFrom:
-                configMapKeyRef:
-                  key: PASSPORT_AUDIENCE
-                  name: env
-            - name: PASSPORT_DOMAIN
-              valueFrom:
-                configMapKeyRef:
-                  key: PASSPORT_DOMAIN
-                  name: env
-            - name: PASSPORT_TOKEN_URL
-              valueFrom:
-                configMapKeyRef:
-                  key: PASSPORT_TOKEN_URL
-                  name: env
             - name: PASSPORT_URL
               valueFrom:
                 configMapKeyRef:
                   key: PASSPORT_URL
                   name: env
-            - name: PGDATA
+            - name: BING_KEY
               valueFrom:
                 configMapKeyRef:
-                  key: PGDATA
+                  key: BING_KEY
                   name: env
-            - name: POSTGRES_DB
+            - name: MAPBOX_ID
               valueFrom:
                 configMapKeyRef:
-                  key: POSTGRES_DB
+                  key: MAPBOX_ID
                   name: env
-            - name: POSTGRES_HOST
+            - name: BLENDER_BASE_URL
               valueFrom:
                 configMapKeyRef:
-                  key: POSTGRES_HOST
+                  key: BLENDER_BASE_URL
                   name: env
-            - name: POSTGRES_PASSWORD
+            - name: PASSPORT_BLENDER_CLIENT_ID
               valueFrom:
                 configMapKeyRef:
-                  key: POSTGRES_PASSWORD
+                  key: PASSPORT_BLENDER_CLIENT_ID
                   name: env
-            - name: POSTGRES_USER
+            - name: PASSPORT_BLENDER_CLIENT_SECRET
               valueFrom:
                 configMapKeyRef:
-                  key: POSTGRES_USER
+                  key: PASSPORT_BLENDER_CLIENT_SECRET
                   name: env
-            - name: REDIS_BROKER_URL
+            - name: PASSPORT_BLENDER_SCOPE
               valueFrom:
                 configMapKeyRef:
-                  key: REDIS_BROKER_URL
+                  key: PASSPORT_BLENDER_SCOPE
                   name: env
-            - name: REDIS_HOST
+            - name: PASSPORT_BLENDER_AUDIENCE
               valueFrom:
                 configMapKeyRef:
-                  key: REDIS_HOST
+                  key: PASSPORT_BLENDER_AUDIENCE
+                  name: env
+            - name: OIDC_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  key: OIDC_DOMAIN
+                  name: env
+            - name: CALLBACK_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: CALLBACK_URL
+                  name: env
+            - name: CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  key: CLIENT_ID
+                  name: env
+            - name: CLIENT_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  key: CLIENT_SECRET
+                  name: env
+            - name: DEFAULT_APPROVED
+              valueFrom:
+                configMapKeyRef:
+                  key: DEFAULT_APPROVED
+                  name: env
+            - name: TILE38_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  key: TILE38_SERVER
+                  name: env
+            - name: TILE38_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: TILE38_PORT
+                  name: env
+            - name: REDIS_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_URL
                   name: env
             - name: REDIS_PASSWORD
               valueFrom:
                 configMapKeyRef:
                   key: REDIS_PASSWORD
                   name: env
-            - name: REDIS_PORT
+            - name: APP_SECRET
               valueFrom:
                 configMapKeyRef:
-                  key: REDIS_PORT
-                  name: env
-            - name: SECRET_KEY
-              valueFrom:
-                configMapKeyRef:
-                  key: SECRET_KEY
+                  key: APP_SECRET
                   name: env
       imagePullSecrets:
         - name: registry-utmtest

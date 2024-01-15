@@ -24,7 +24,7 @@ spec:
         - args:
             - ./entrypoint.sh
           name: web
-          image: registry.digitalocean.com/utmtest/flight-passport:latest
+          image: flight-passport
           # imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9000

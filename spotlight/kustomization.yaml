@@ -1,13 +1,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: blender
+namespace: spotlight
 
 images:
-  - name: flight-blender
-    newName: registry.digitalocean.com/utmtest/flight-blender:latest
+  - name: flight-spotlight
+    newName: registry.digitalocean.com/utmtest/flight-spotlight:latest
 
-# namePrefix: "blender-"
+# namePrefix: "spotlight-"
 
 generatorOptions:
   disableNameSuffixHash: true # this flag is used to avoid creation of new configmap, instead it will be modified when file context is changed
@@ -29,9 +29,7 @@ resources:
   - resources/namespace.yaml
   - resources/web.yaml
   - resources/web-service.yaml
-  - resources/worker.yaml
-  - resources/db.yaml
-  - resources/db-pvc.yaml
-  - resources/db-service.yaml
+  - resources/tile38.yaml
+  - resources/tile38-service.yaml
   - resources/redis.yaml
   - resources/redis-service.yaml

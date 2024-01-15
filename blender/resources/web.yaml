@@ -24,7 +24,7 @@ spec:
         - args:
             - ./entrypoint.sh
           name: web
-          image: registry.digitalocean.com/utmtest/flight-blender:latest
+          image: flight-blender
           # imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
