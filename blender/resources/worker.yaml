@@ -17,13 +17,10 @@ spec:
         app: worker
         version: v1
     spec:
-      serviceAccountName: blender-web
+      # serviceAccountName: blender-worker
       containers:
         - args:
-            - "celery"
-            - "--app=flight_blender"
-            - "worker"
-            - "--loglevel=info"
+            - ./entrypoint-celery.sh
           name: worker
           image: flight-blender
           # imagePullPolicy: IfNotPresent
@@ -35,103 +32,98 @@ spec:
           env:
             - name: BLENDER_FQDN
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: BLENDER_FQDN
-                  name: env
+                  name: env-secrets
             - name: BYPASS_AUTH_TOKEN_VERIFICATION
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: BYPASS_AUTH_TOKEN_VERIFICATION
-                  name: env
+                  name: env-secrets
             - name: DATABASE_URL
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: DATABASE_URL
-                  name: env
-            - name: FLIGHT_SPOTLIGHT_URL
-              valueFrom:
-                configMapKeyRef:
-                  key: FLIGHT_SPOTLIGHT_URL
-                  name: env
+                  name: env-secrets
             - name: HEARTBEAT_RATE_SECS
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: HEARTBEAT_RATE_SECS
-                  name: env
+                  name: env-secrets
             - name: IS_DEBUG
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: IS_DEBUG
-                  name: env
+                  name: env-secrets
             - name: PASSPORT_AUDIENCE
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: PASSPORT_AUDIENCE
-                  name: env
+                  name: env-secrets
             - name: PASSPORT_DOMAIN
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: PASSPORT_DOMAIN
-                  name: env
+                  name: env-secrets
             - name: PASSPORT_TOKEN_URL
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: PASSPORT_TOKEN_URL
-                  name: env
+                  name: env-secrets
             - name: PASSPORT_URL
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: PASSPORT_URL
-                  name: env
+                  name: env-secrets
             - name: PGDATA
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: PGDATA
-                  name: env
+                  name: env-secrets
             - name: POSTGRES_DB
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: POSTGRES_DB
-                  name: env
+                  name: env-secrets
             - name: POSTGRES_HOST
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: POSTGRES_HOST
-                  name: env
+                  name: env-secrets
             - name: POSTGRES_PASSWORD
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: POSTGRES_PASSWORD
-                  name: env
+                  name: env-secrets
             - name: POSTGRES_USER
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: POSTGRES_USER
-                  name: env
+                  name: env-secrets
             - name: REDIS_BROKER_URL
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: REDIS_BROKER_URL
-                  name: env
+                  name: env-secrets
             - name: REDIS_HOST
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: REDIS_HOST
-                  name: env
+                  name: env-secrets
             - name: REDIS_PASSWORD
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: REDIS_PASSWORD
-                  name: env
+                  name: env-secrets
             - name: REDIS_PORT
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: REDIS_PORT
-                  name: env
+                  name: env-secrets
             - name: SECRET_KEY
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: SECRET_KEY
-                  name: env
+                  name: env-secrets
       imagePullSecrets:
         - name: registry-utmtest

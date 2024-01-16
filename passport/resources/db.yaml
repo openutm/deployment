@@ -44,6 +44,21 @@ spec:
                 secretKeyRef:
                   key: POSTGRES_USER
                   name: env-secrets
+            - name: ESP_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: ESP_API_KEY
+                  name: env-secrets
+            - name: ESP_USER_NAME
+              valueFrom:
+                secretKeyRef:
+                  key: ESP_USER_NAME
+                  name: env-secrets
+            - name: ESP_EMAIL_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: ESP_EMAIL_HOST
+                  name: env-secrets
           image: postgres
           imagePullPolicy: IfNotPresent
           name: db

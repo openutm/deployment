@@ -33,50 +33,10 @@ spec:
             runAsGroup: 10000
           resources: {}
           env:
-            - name: BLENDER_FQDN
-              valueFrom:
-                secretKeyRef:
-                  key: BLENDER_FQDN
-                  name: env-secrets
-            - name: BYPASS_AUTH_TOKEN_VERIFICATION
-              valueFrom:
-                secretKeyRef:
-                  key: BYPASS_AUTH_TOKEN_VERIFICATION
-                  name: env-secrets
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
                   key: DATABASE_URL
-                  name: env-secrets
-            - name: FLIGHT_SPOTLIGHT_URL
-              valueFrom:
-                secretKeyRef:
-                  key: FLIGHT_SPOTLIGHT_URL
-                  name: env-secrets
-            - name: HEARTBEAT_RATE_SECS
-              valueFrom:
-                secretKeyRef:
-                  key: HEARTBEAT_RATE_SECS
-                  name: env-secrets
-            - name: PASSPORT_AUDIENCE
-              valueFrom:
-                secretKeyRef:
-                  key: PASSPORT_AUDIENCE
-                  name: env-secrets
-            - name: PASSPORT_DOMAIN
-              valueFrom:
-                secretKeyRef:
-                  key: PASSPORT_DOMAIN
-                  name: env-secrets
-            - name: PASSPORT_TOKEN_URL
-              valueFrom:
-                secretKeyRef:
-                  key: PASSPORT_TOKEN_URL
-                  name: env-secrets
-            - name: PASSPORT_URL
-              valueFrom:
-                secretKeyRef:
-                  key: PASSPORT_URL
                   name: env-secrets
             - name: PGDATA
               valueFrom:
@@ -103,30 +63,10 @@ spec:
                 secretKeyRef:
                   key: POSTGRES_USER
                   name: env-secrets
-            - name: REDIS_BROKER_URL
+            - name: DJANGO_SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  key: REDIS_BROKER_URL
-                  name: env-secrets
-            - name: REDIS_HOST
-              valueFrom:
-                secretKeyRef:
-                  key: REDIS_HOST
-                  name: env-secrets
-            - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: REDIS_PASSWORD
-                  name: env-secrets
-            - name: REDIS_PORT
-              valueFrom:
-                secretKeyRef:
-                  key: REDIS_PORT
-                  name: env-secrets
-            - name: SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  key: SECRET_KEY
+                  key: DJANGO_SECRET_KEY
                   name: env-secrets
             - name: DJANGO_SUPERUSER_USERNAME
               valueFrom:
@@ -147,6 +87,16 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: SHOW_ADMIN
+                  name: env-secrets
+            - name: USING_DOCKER_COMPOSE
+              valueFrom:
+                secretKeyRef:
+                  key: USING_DOCKER_COMPOSE
+                  name: env-secrets
+            - name: ENABLE_DEBUG
+              valueFrom:
+                secretKeyRef:
+                  key: ENABLE_DEBUG
                   name: env-secrets
       imagePullSecrets:
         - name: registry-utmtest

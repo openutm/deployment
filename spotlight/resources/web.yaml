@@ -36,93 +36,93 @@ spec:
           env:
             - name: PASSPORT_URL
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: PASSPORT_URL
-                  name: env
+                  name: env-secrets
             - name: BING_KEY
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: BING_KEY
-                  name: env
+                  name: env-secrets
             - name: MAPBOX_ID
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: MAPBOX_ID
-                  name: env
+                  name: env-secrets
             - name: BLENDER_BASE_URL
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: BLENDER_BASE_URL
-                  name: env
+                  name: env-secrets
             - name: PASSPORT_BLENDER_CLIENT_ID
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: PASSPORT_BLENDER_CLIENT_ID
-                  name: env
+                  name: env-secrets
             - name: PASSPORT_BLENDER_CLIENT_SECRET
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: PASSPORT_BLENDER_CLIENT_SECRET
-                  name: env
+                  name: env-secrets
             - name: PASSPORT_BLENDER_SCOPE
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: PASSPORT_BLENDER_SCOPE
-                  name: env
+                  name: env-secrets
             - name: PASSPORT_BLENDER_AUDIENCE
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: PASSPORT_BLENDER_AUDIENCE
-                  name: env
+                  name: env-secrets
             - name: OIDC_DOMAIN
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: OIDC_DOMAIN
-                  name: env
+                  name: env-secrets
             - name: CALLBACK_URL
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: CALLBACK_URL
-                  name: env
+                  name: env-secrets
             - name: CLIENT_ID
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: CLIENT_ID
-                  name: env
+                  name: env-secrets
             - name: CLIENT_SECRET
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: CLIENT_SECRET
-                  name: env
+                  name: env-secrets
             - name: DEFAULT_APPROVED
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: DEFAULT_APPROVED
-                  name: env
+                  name: env-secrets
             - name: TILE38_SERVER
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: TILE38_SERVER
-                  name: env
+                  name: env-secrets
             - name: TILE38_PORT
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: TILE38_PORT
-                  name: env
+                  name: env-secrets
             - name: REDIS_URL
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: REDIS_URL
-                  name: env
+                  name: env-secrets
             - name: REDIS_PASSWORD
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: REDIS_PASSWORD
-                  name: env
+                  name: env-secrets
             - name: APP_SECRET
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: APP_SECRET
-                  name: env
+                  name: env-secrets
       imagePullSecrets:
         - name: registry-utmtest
