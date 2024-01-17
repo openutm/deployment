@@ -2,20 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    io.kompose.service: redis
-  name: redis
+    io.kompose.service: redis-spotlight
+  name: redis-spotlight
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: redis
+      io.kompose.service: redis-spotlight
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         io.kompose.network/blender-default: "true"
-        io.kompose.service: redis
+        io.kompose.service: redis-spotlight
     spec:
       containers:
         - args:
@@ -23,7 +23,7 @@ spec:
             - "/redis-config/redis.conf"
           image: redis:latest
           imagePullPolicy: IfNotPresent
-          name: redis
+          name: redis-spotlight
           ports:
             - containerPort: 6379
               protocol: TCP
@@ -41,7 +41,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: redis-config
+            name: redis-spotlight-config
             items:
               - key: redis.conf
                 path: redis.conf

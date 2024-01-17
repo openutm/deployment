@@ -8,14 +8,19 @@ images:
     newName: registry.digitalocean.com/utmtest/flight-blender:latest
   - name: flight-passport
     newName: registry.digitalocean.com/utmtest/flight-passport:latest
+  - name: flight-spotlight
+    newName: registry.digitalocean.com/utmtest/flight-spotlight:latest
 
 generatorOptions:
   disableNameSuffixHash: true # this flag is used to avoid creation of new configmap, instead it will be modified when file context is changed
 
 configMapGenerator:
-  - name: redis-config
+  - name: redis-blender-config
     files:
-      - redis.conf
+      - resources/blender/redis.conf
+  - name: redis-spotlight-config
+    files:
+      - resources/spotlight/redis.conf
 
 secretGenerator:
   - name: env-secrets
@@ -24,23 +29,31 @@ secretGenerator:
   - name: env-secrets-passport
     envs:
       - .env.passport
+  - name: env-secrets-spotlight
+    envs:
+      - .env.spotlight
 
 resources:
   - resources/namespace.yaml
-  - resources/db-blender.yaml
-  - resources/db-blender-pvc.yaml
-  - resources/db-blender-service.yaml
 
-  - resources/db-passport.yaml
-  - resources/db-passport-pvc.yaml
-  - resources/db-passport-service.yaml
+  - resources/blender/blender.yaml
+  - resources/blender/blender-service.yaml
+  - resources/blender/worker.yaml
+  - resources/blender/db-blender.yaml
+  - resources/blender/db-blender-pvc.yaml
+  - resources/blender/db-blender-service.yaml
+  - resources/blender/redis.yaml
+  - resources/blender/redis-service.yaml
 
-  - resources/redis.yaml
-  - resources/redis-service.yaml
+  - resources/passport/passport.yaml
+  - resources/passport/passport-service.yaml
+  - resources/passport/db-passport.yaml
+  - resources/passport/db-passport-pvc.yaml
+  - resources/passport/db-passport-service.yaml
 
-  - resources/blender.yaml
-  - resources/blender-service.yaml
-  - resources/worker.yaml
-
-  - resources/passport.yaml
-  - resources/passport-service.yaml
+  - resources/spotlight/spotlight.yaml
+  - resources/spotlight/spotlight-service.yaml
+  - resources/spotlight/tile38.yaml
+  - resources/spotlight/tile38-service.yaml
+  - resources/spotlight/redis-spotlight.yaml
+  - resources/spotlight/redis-spotlight-service.yaml

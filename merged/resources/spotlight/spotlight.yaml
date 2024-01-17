@@ -1,0 +1,128 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spotlight
+  labels:
+    app: spotlight
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spotlight
+      version: v1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: spotlight
+        version: v1
+    spec:
+      serviceAccountName: spotlight-svc
+      containers:
+        - args:
+            - npm
+            - start
+          name: spotlight
+          image: flight-spotlight
+          # imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          # securityContext:
+          #   runAsUser: 10000
+          #   runAsGroup: 10000
+          resources: {}
+          env:
+            - name: PASSPORT_URL
+              valueFrom:
+                secretKeyRef:
+                  key: PASSPORT_URL
+                  name: env-secrets-spotlight
+            - name: BING_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: BING_KEY
+                  name: env-secrets-spotlight
+            - name: MAPBOX_ID
+              valueFrom:
+                secretKeyRef:
+                  key: MAPBOX_ID
+                  name: env-secrets-spotlight
+            - name: BLENDER_BASE_URL
+              valueFrom:
+                secretKeyRef:
+                  key: BLENDER_BASE_URL
+                  name: env-secrets-spotlight
+            - name: PASSPORT_BLENDER_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  key: PASSPORT_BLENDER_CLIENT_ID
+                  name: env-secrets-spotlight
+            - name: PASSPORT_BLENDER_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: PASSPORT_BLENDER_CLIENT_SECRET
+                  name: env-secrets-spotlight
+            - name: PASSPORT_BLENDER_SCOPE
+              valueFrom:
+                secretKeyRef:
+                  key: PASSPORT_BLENDER_SCOPE
+                  name: env-secrets-spotlight
+            - name: PASSPORT_BLENDER_AUDIENCE
+              valueFrom:
+                secretKeyRef:
+                  key: PASSPORT_BLENDER_AUDIENCE
+                  name: env-secrets-spotlight
+            - name: OIDC_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  key: OIDC_DOMAIN
+                  name: env-secrets-spotlight
+            - name: CALLBACK_URL
+              valueFrom:
+                secretKeyRef:
+                  key: CALLBACK_URL
+                  name: env-secrets-spotlight
+            - name: CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  key: CLIENT_ID
+                  name: env-secrets-spotlight
+            - name: CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: CLIENT_SECRET
+                  name: env-secrets-spotlight
+            - name: DEFAULT_APPROVED
+              valueFrom:
+                secretKeyRef:
+                  key: DEFAULT_APPROVED
+                  name: env-secrets-spotlight
+            - name: TILE38_SERVER
+              valueFrom:
+                secretKeyRef:
+                  key: TILE38_SERVER
+                  name: env-secrets-spotlight
+            - name: TILE38_PORT
+              valueFrom:
+                secretKeyRef:
+                  key: TILE38_PORT
+                  name: env-secrets-spotlight
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  key: REDIS_URL
+                  name: env-secrets-spotlight
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: REDIS_PASSWORD
+                  name: env-secrets-spotlight
+            - name: APP_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: APP_SECRET
+                  name: env-secrets-spotlight
+      imagePullSecrets:
+        - name: registry-utmtest
