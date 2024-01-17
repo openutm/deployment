@@ -17,10 +17,10 @@ generatorOptions:
 configMapGenerator:
   - name: redis-blender-config
     files:
-      - resources/blender/redis.conf
+      - blender/redis.conf
   - name: redis-spotlight-config
     files:
-      - resources/spotlight/redis.conf
+      - spotlight/redis.conf
 
 secretGenerator:
   - name: env-secrets
@@ -34,26 +34,26 @@ secretGenerator:
       - .env.spotlight
 
 resources:
-  - resources/namespace.yaml
+  - namespace.yaml
 
-  - resources/blender/blender.yaml
-  - resources/blender/blender-service.yaml
-  - resources/blender/worker.yaml
-  - resources/blender/db-blender.yaml
-  - resources/blender/db-blender-pvc.yaml
-  - resources/blender/db-blender-service.yaml
-  - resources/blender/redis.yaml
-  - resources/blender/redis-service.yaml
+  - blender/blender.yaml
+  - blender/blender-service.yaml
+  - blender/worker.yaml
+  - blender/db-blender.yaml
+  - blender/db-blender-pvc.yaml
+  - blender/db-blender-service.yaml
+  - blender/redis.yaml
+  - blender/redis-service.yaml
 
-  - resources/passport/passport.yaml
-  - resources/passport/passport-service.yaml
-  - resources/passport/db-passport.yaml
-  - resources/passport/db-passport-pvc.yaml
-  - resources/passport/db-passport-service.yaml
+  - passport/passport.yaml
+  - passport/passport-service.yaml
+  - passport/db-passport.yaml
+  - passport/db-passport-pvc.yaml
+  - passport/db-passport-service.yaml
 
-  - resources/spotlight/spotlight.yaml
-  - resources/spotlight/spotlight-service.yaml
-  - resources/spotlight/tile38.yaml
-  - resources/spotlight/tile38-service.yaml
-  - resources/spotlight/redis-spotlight.yaml
-  - resources/spotlight/redis-spotlight-service.yaml
+  - spotlight/spotlight.yaml
+  - spotlight/spotlight-service.yaml
+  - spotlight/tile38.yaml
+  - spotlight/tile38-service.yaml
+  - spotlight/redis-spotlight.yaml
+  - spotlight/redis-spotlight-service.yaml
