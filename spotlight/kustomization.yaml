@@ -16,9 +16,6 @@ configMapGenerator:
   - name: redis-config
     files:
       - redis.conf
-  - name: env
-    envs:
-      - .env
 
 secretGenerator:
   - name: env-secrets
