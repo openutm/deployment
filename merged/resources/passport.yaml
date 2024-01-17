@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: passport
+  labels:
+    app: passport
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: passport
+      version: v1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: passport
+        version: v1
+    spec:
+      serviceAccountName: passport-svc
+      containers:
+        - args:
+            - ./entrypoint.sh
+          name: passport
+          image: flight-passport
+          # imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9000
+          securityContext:
+            runAsUser: 10000
+            runAsGroup: 10000
+          resources: {}
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  key: DATABASE_URL
+                  name: env-secrets-passport
+            - name: PGDATA
+              valueFrom:
+                secretKeyRef:
+                  key: PGDATA
+                  name: env-secrets-passport
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_DB
+                  name: env-secrets-passport
+            - name: POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_HOST
+                  name: env-secrets-passport
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: env-secrets-passport
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_USER
+                  name: env-secrets-passport
+            - name: DJANGO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: DJANGO_SECRET_KEY
+                  name: env-secrets-passport
+            - name: DJANGO_SUPERUSER_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: DJANGO_SUPERUSER_USERNAME
+                  name: env-secrets-passport
+            - name: DJANGO_SUPERUSER_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  key: DJANGO_SUPERUSER_EMAIL
+                  name: env-secrets-passport
+            - name: DJANGO_SUPERUSER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: DJANGO_SUPERUSER_PASSWORD
+                  name: env-secrets-passport
+            - name: SHOW_ADMIN
+              valueFrom:
+                secretKeyRef:
+                  key: SHOW_ADMIN
+                  name: env-secrets-passport
+            - name: USING_DOCKER_COMPOSE
+              valueFrom:
+                secretKeyRef:
+                  key: USING_DOCKER_COMPOSE
+                  name: env-secrets-passport
+            - name: ENABLE_DEBUG
+              valueFrom:
+                secretKeyRef:
+                  key: ENABLE_DEBUG
+                  name: env-secrets-passport
+      imagePullSecrets:
+        - name: registry-utmtest

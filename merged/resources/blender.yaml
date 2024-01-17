@@ -1,0 +1,134 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blender
+  labels:
+    app: blender
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blender
+      version: v1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: blender
+        version: v1
+    spec:
+      serviceAccountName: blender-svc
+      containers:
+        - args:
+            - ./entrypoint.sh
+          name: blender
+          image: flight-blender
+          # imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          securityContext:
+            runAsUser: 10000
+            runAsGroup: 10000
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+          resources: {}
+          env:
+            - name: BLENDER_FQDN
+              valueFrom:
+                secretKeyRef:
+                  key: BLENDER_FQDN
+                  name: env-secrets
+            - name: BYPASS_AUTH_TOKEN_VERIFICATION
+              valueFrom:
+                secretKeyRef:
+                  key: BYPASS_AUTH_TOKEN_VERIFICATION
+                  name: env-secrets
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  key: DATABASE_URL
+                  name: env-secrets
+            - name: HEARTBEAT_RATE_SECS
+              valueFrom:
+                secretKeyRef:
+                  key: HEARTBEAT_RATE_SECS
+                  name: env-secrets
+            - name: IS_DEBUG
+              valueFrom:
+                secretKeyRef:
+                  key: IS_DEBUG
+                  name: env-secrets
+            - name: PASSPORT_AUDIENCE
+              valueFrom:
+                secretKeyRef:
+                  key: PASSPORT_AUDIENCE
+                  name: env-secrets
+            - name: PASSPORT_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  key: PASSPORT_DOMAIN
+                  name: env-secrets
+            - name: PASSPORT_TOKEN_URL
+              valueFrom:
+                secretKeyRef:
+                  key: PASSPORT_TOKEN_URL
+                  name: env-secrets
+            - name: PASSPORT_URL
+              valueFrom:
+                secretKeyRef:
+                  key: PASSPORT_URL
+                  name: env-secrets
+            - name: PGDATA
+              valueFrom:
+                secretKeyRef:
+                  key: PGDATA
+                  name: env-secrets
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_DB
+                  name: env-secrets
+            - name: POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_HOST
+                  name: env-secrets
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: env-secrets
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_USER
+                  name: env-secrets
+            - name: REDIS_BROKER_URL
+              valueFrom:
+                secretKeyRef:
+                  key: REDIS_BROKER_URL
+                  name: env-secrets
+            - name: REDIS_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: REDIS_HOST
+                  name: env-secrets
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: REDIS_PASSWORD
+                  name: env-secrets
+            - name: REDIS_PORT
+              valueFrom:
+                secretKeyRef:
+                  key: REDIS_PORT
+                  name: env-secrets
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: SECRET_KEY
+                  name: env-secrets
+      imagePullSecrets:
+        - name: registry-utmtest

@@ -1,0 +1,46 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: openutm
+
+images:
+  - name: flight-blender
+    newName: registry.digitalocean.com/utmtest/flight-blender:latest
+  - name: flight-passport
+    newName: registry.digitalocean.com/utmtest/flight-passport:latest
+
+generatorOptions:
+  disableNameSuffixHash: true # this flag is used to avoid creation of new configmap, instead it will be modified when file context is changed
+
+configMapGenerator:
+  - name: redis-config
+    files:
+      - redis.conf
+
+secretGenerator:
+  - name: env-secrets
+    envs:
+      - .env.blender
+  - name: env-secrets-passport
+    envs:
+      - .env.passport
+
+resources:
+  - resources/namespace.yaml
+  - resources/db-blender.yaml
+  - resources/db-blender-pvc.yaml
+  - resources/db-blender-service.yaml
+
+  - resources/db-passport.yaml
+  - resources/db-passport-pvc.yaml
+  - resources/db-passport-service.yaml
+
+  - resources/redis.yaml
+  - resources/redis-service.yaml
+
+  - resources/blender.yaml
+  - resources/blender-service.yaml
+  - resources/worker.yaml
+
+  - resources/passport.yaml
+  - resources/passport-service.yaml
