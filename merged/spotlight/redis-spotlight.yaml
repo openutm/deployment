@@ -2,42 +2,51 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    io.kompose.service: redis-spotlight
+    app: redis-spotlight
   name: redis-spotlight
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: redis-spotlight
+      app: redis-spotlight
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        io.kompose.network/blender-default: "true"
-        io.kompose.service: redis-spotlight
+        app: redis-spotlight
     spec:
       containers:
-        - args:
+        - name: redis-spotlight
+          args:
             - redis-server
             - "/redis-config/redis.conf"
+            - "--requirepass"
+            - "$(REDIS_PASSWORD)"
           image: redis:latest
           imagePullPolicy: IfNotPresent
-          name: redis-spotlight
           ports:
             - containerPort: 6379
               protocol: TCP
-          resources: {}
+              name: redis
+          # readinessProbe:
+          #   periodSeconds: 5
+          #   tcpSocket:
+          #     port: 6379
+          # livenessProbe:
+          #   periodSeconds: 5
+          #   tcpSocket:
+          #     port: 6379
           env:
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: env-secrets
+                  name: env-secrets-spotlight
                   key: REDIS_PASSWORD
           volumeMounts:
             - mountPath: /redis-config
               name: config
-      restartPolicy: Always
+          resources: {}
       volumes:
         - name: config
           configMap:
@@ -45,4 +54,5 @@ spec:
             items:
               - key: redis.conf
                 path: redis.conf
+      restartPolicy: Always
 status: {}

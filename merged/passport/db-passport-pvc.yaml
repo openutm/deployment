@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   labels:
-    io.kompose.service: db-passport-data
+    app: db-passport-data
   name: db-passport-data
 spec:
   accessModes:

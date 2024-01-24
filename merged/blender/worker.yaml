@@ -59,16 +59,6 @@ spec:
                 secretKeyRef:
                   key: PASSPORT_AUDIENCE
                   name: env-secrets
-            - name: PASSPORT_DOMAIN
-              valueFrom:
-                secretKeyRef:
-                  key: PASSPORT_DOMAIN
-                  name: env-secrets
-            - name: PASSPORT_TOKEN_URL
-              valueFrom:
-                secretKeyRef:
-                  key: PASSPORT_TOKEN_URL
-                  name: env-secrets
             - name: PASSPORT_URL
               valueFrom:
                 secretKeyRef:

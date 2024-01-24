@@ -2,20 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    io.kompose.service: tile38
+    app: tile38
   name: tile38
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: tile38
+      app: tile38
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         io.kompose.network/blender-default: "true"
-        io.kompose.service: tile38
+        app: tile38
     spec:
       containers:
         - args:

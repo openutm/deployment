@@ -8,12 +8,12 @@ metadata:
     service: blender
 spec:
   type: NodePort
-  ports:
-    - port: 8000
-      name: http
-      targetPort: 8000
   selector:
     app: blender
+  ports:
+    - name: http
+      port: 8000
+      targetPort: http
 ---
 apiVersion: v1
 kind: ServiceAccount

@@ -2,32 +2,53 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    io.kompose.service: redis
+    app: redis
   name: redis
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: redis
+      app: redis
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        io.kompose.network/blender-default: "true"
-        io.kompose.service: redis
+        app: redis
     spec:
+      # securityContext:
+      #   fsGroup: 10000
+      #   runAsGroup: 10000
+      #   runAsNonRoot: true
+      #   runAsUser: 10000
       containers:
-        - args:
+        - name: redis
+          args:
             - redis-server
             - "/redis-config/redis.conf"
+            - "--requirepass"
+            - "$(REDIS_PASSWORD)"
           image: redis:latest
           imagePullPolicy: IfNotPresent
-          name: redis
+          # securityContext:
+          #   allowPrivilegeEscalation: false
+          #   capabilities:
+          #     drop:
+          #       - all
+          #   privileged: false
+          #   readOnlyRootFilesystem: true
           ports:
             - containerPort: 6379
               protocol: TCP
-          resources: {}
+              name: redis
+          # readinessProbe:
+          #   periodSeconds: 5
+          #   tcpSocket:
+          #     port: 6379
+          # livenessProbe:
+          #   periodSeconds: 5
+          #   tcpSocket:
+          #     port: 6379
           env:
             - name: REDIS_PASSWORD
               valueFrom:
@@ -37,7 +58,7 @@ spec:
           volumeMounts:
             - mountPath: /redis-config
               name: config
-      restartPolicy: Always
+          resources: {}
       volumes:
         - name: config
           configMap:
@@ -45,4 +66,5 @@ spec:
             items:
               - key: redis.conf
                 path: redis.conf
+      restartPolicy: Always
 status: {}

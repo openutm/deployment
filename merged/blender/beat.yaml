@@ -1,39 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: blender
+  name: beat
   labels:
-    app: blender
+    app: beat
     version: v1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: blender
+      app: beat
       version: v1
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
-        app: blender
+        app: beat
         version: v1
     spec:
-      serviceAccountName: blender-svc
       containers:
-        - name: blender
-          command:
-            - ./entrypoint.sh
+        - args:
+            - ./entrypoint-beat.sh
+            # - celery --app=flight_blender beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+          name: beat
           image: flight-blender
           # imagePullPolicy: IfNotPresent
-          ports:
-            - name: http
-              containerPort: 8000
+          # ports:
+          #   - containerPort: 8000
           securityContext:
-            runAsUser: 10000
-            runAsGroup: 10000
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
+            runAsUser: 1000
           resources: {}
           env:
             - name: BLENDER_FQDN

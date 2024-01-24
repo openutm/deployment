@@ -39,6 +39,7 @@ resources:
   - blender/blender.yaml
   - blender/blender-service.yaml
   - blender/worker.yaml
+  - blender/beat.yaml
   - blender/db-blender.yaml
   - blender/db-blender-pvc.yaml
   - blender/db-blender-service.yaml

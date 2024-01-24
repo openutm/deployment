@@ -2,13 +2,14 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    io.kompose.service: tile38
+    app: tile38
   name: tile38
 spec:
   ports:
     - port: 9851
+      name: tile38
       targetPort: 9851
   selector:
-    io.kompose.service: tile38
+    app: tile38
 status:
   loadBalancer: {}

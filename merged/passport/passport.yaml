@@ -98,5 +98,10 @@ spec:
                 secretKeyRef:
                   key: ENABLE_DEBUG
                   name: env-secrets-passport
+            - name: OIDC_RSA_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: OIDC_RSA_PRIVATE_KEY
+                  name: env-secrets-passport
       imagePullSecrets:
         - name: registry-utmtest
