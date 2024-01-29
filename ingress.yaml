@@ -4,14 +4,18 @@ metadata:
   name: ingress-utm
   namespace: openutm
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    cert-manager.io/issuer: "letsencrypt-nginx-wcard"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/issuer: "letsencrypt-nginx-wcard-issuer"
+    acme.cert-manager.io/dns01-edit-in-place: "true"
+  labels:
+    app: nginx
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - "blender.utm.pingzone.ie"
-      secretName: letsencrypt-nginx-wcard
+        - "utm.pingzone.ie"
+        - "*.utm.pingzone.ie"
+      secretName: letsencrypt-nginx-wcard-tls
   rules:
     - host: "blender.utm.pingzone.ie"
       http:
@@ -23,23 +27,23 @@ spec:
                 name: blender
                 port:
                   number: 8000
-    # - host: "passport.utm.pingzone.ie"
-    #   http:
-    #     paths:
-    #       - pathType: Prefix
-    #         path: /
-    #         backend:
-    #           service:
-    #             name: passport
-    #             port:
-    #               number: 9000
-    # - host: "spotlight.utm.pingzone.ie"
-    #   http:
-    #     paths:
-    #       - pathType: Prefix
-    #         path: /
-    #         backend:
-    #           service:
-    #             name: spotlight
-    #             port:
-    #               number: 5000
+    - host: "passport.utm.pingzone.ie"
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: passport
+                port:
+                  number: 9000
+    - host: "spotlight.utm.pingzone.ie"
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: spotlight
+                port:
+                  number: 5000
