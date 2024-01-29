@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: openutm
+
+images:
+  - name: flight-passport
+    newName: registry.digitalocean.com/utmtest/flight-passport:latest
+
+generatorOptions:
+  disableNameSuffixHash: true # this flag is used to avoid creation of new configmap, instead it will be modified when file context is changed
+
+secretGenerator:
+  - name: env-secrets-passport
+    envs:
+      - .env.passport
+
+resources:
+  - passport.yaml
+  - passport-service.yaml
+  - db-passport.yaml
+  - db-passport-pvc.yaml
+  - db-passport-service.yaml

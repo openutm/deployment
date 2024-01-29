@@ -20,7 +20,6 @@ spec:
       containers:
         - args:
             - ./entrypoint-beat.sh
-            # - celery --app=flight_blender beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
           name: beat
           image: flight-blender
           # imagePullPolicy: IfNotPresent

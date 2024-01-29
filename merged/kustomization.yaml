@@ -3,58 +3,8 @@ kind: Kustomization
 
 namespace: openutm
 
-images:
-  - name: flight-blender
-    newName: registry.digitalocean.com/utmtest/flight-blender:latest
-  - name: flight-passport
-    newName: registry.digitalocean.com/utmtest/flight-passport:latest
-  - name: flight-spotlight
-    newName: registry.digitalocean.com/utmtest/flight-spotlight:latest
-
-generatorOptions:
-  disableNameSuffixHash: true # this flag is used to avoid creation of new configmap, instead it will be modified when file context is changed
-
-configMapGenerator:
-  - name: redis-blender-config
-    files:
-      - blender/redis.conf
-  - name: redis-spotlight-config
-    files:
-      - spotlight/redis.conf
-
-secretGenerator:
-  - name: env-secrets
-    envs:
-      - .env.blender
-  - name: env-secrets-passport
-    envs:
-      - .env.passport
-  - name: env-secrets-spotlight
-    envs:
-      - .env.spotlight
-
 resources:
   - namespace.yaml
-
-  - blender/blender.yaml
-  - blender/blender-service.yaml
-  - blender/worker.yaml
-  - blender/beat.yaml
-  - blender/db-blender.yaml
-  - blender/db-blender-pvc.yaml
-  - blender/db-blender-service.yaml
-  - blender/redis.yaml
-  - blender/redis-service.yaml
-
-  - passport/passport.yaml
-  - passport/passport-service.yaml
-  - passport/db-passport.yaml
-  - passport/db-passport-pvc.yaml
-  - passport/db-passport-service.yaml
-
-  - spotlight/spotlight.yaml
-  - spotlight/spotlight-service.yaml
-  - spotlight/tile38.yaml
-  - spotlight/tile38-service.yaml
-  - spotlight/redis-spotlight.yaml
-  - spotlight/redis-spotlight-service.yaml
+  - blender
+  - passport
+  - spotlight
