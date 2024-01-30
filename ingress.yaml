@@ -15,7 +15,7 @@ spec:
     - hosts:
         - "utm.pingzone.ie"
         - "*.utm.pingzone.ie"
-      secretName: letsencrypt-nginx-wcard-tls
+      secretName: letsencrypt-nginx-wcard-ingress
   rules:
     - host: "blender.utm.pingzone.ie"
       http:
@@ -64,7 +64,7 @@ spec:
     - hosts:
         - "utm.pingzone.ie"
         - "*.utm.pingzone.ie"
-      secretName: letsencrypt-nginx-wcard-tls
+      secretName: letsencrypt-nginx-wcard-ingress
   rules:
     - host: "utm.pingzone.ie"
       http:
