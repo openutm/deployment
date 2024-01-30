@@ -108,5 +108,10 @@ spec:
                 secretKeyRef:
                   key: JWT_ISSUER_DOMAIN
                   name: env-secrets-passport
+            - name: DOMAIN_WHITELIST
+              valueFrom:
+                secretKeyRef:
+                  key: DOMAIN_WHITELIST
+                  name: env-secrets-passport
       imagePullSecrets:
         - name: registry-utmtest
