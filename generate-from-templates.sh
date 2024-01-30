@@ -1,4 +1,5 @@
-export DOMAIN_NAME=utm.pingzone.ie
+export DOMAIN_NAME="utm.pingzone.ie"
+export ACME_CONTACT_EMAIL="info+openutm@pingzone.ie"
 
 for file_name in issuer certificate ingress; do
     (
