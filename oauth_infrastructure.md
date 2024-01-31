@@ -32,7 +32,6 @@ The section below details the environment file variables and a short comment on 
 
 | Variable Key | Description |
 |--------------|:-----:|
-
 | BLENDER_WRITE_CLIENT_ID | The client credentials ID set in Flight Passport |
 | BLENDER_WRITE_CLIENT_SECRET | - |
 | BLENDER_AUDIENCE | - |
