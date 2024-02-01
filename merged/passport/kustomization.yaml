@@ -14,6 +14,9 @@ secretGenerator:
   - name: env-secrets-passport
     envs:
       - .env.passport
+  - name: oidc-key
+    files:
+      - oidc.key
 
 resources:
   - passport.yaml

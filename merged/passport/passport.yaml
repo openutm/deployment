@@ -101,8 +101,8 @@ spec:
             - name: OIDC_RSA_PRIVATE_KEY
               valueFrom:
                 secretKeyRef:
-                  key: OIDC_RSA_PRIVATE_KEY
-                  name: env-secrets-passport
+                  key: oidc.key
+                  name: oidc-key
             - name: JWT_ISSUER_DOMAIN
               valueFrom:
                 secretKeyRef:
