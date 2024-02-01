@@ -16,7 +16,7 @@ configMapGenerator:
       - redis.conf
 
 secretGenerator:
-  - name: env-secrets
+  - name: env-secrets-blender
     envs:
       - .env.blender
 
@@ -28,5 +28,5 @@ resources:
   - db-blender.yaml
   - db-blender-pvc.yaml
   - db-blender-service.yaml
-  - redis.yaml
-  - redis-service.yaml
+  - redis-blender.yaml
+  - redis-blender-service.yaml

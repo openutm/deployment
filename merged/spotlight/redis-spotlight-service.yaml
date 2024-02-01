@@ -1,9 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
+  name: redis-spotlight
   labels:
     app: redis-spotlight
-  name: redis-spotlight
+    service: redis-spotlight
 spec:
   type: ClusterIP
   selector:

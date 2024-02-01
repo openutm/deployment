@@ -2,19 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: redis
-  name: redis
+    app: redis-blender
+  name: redis-blender
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: redis
+      app: redis-blender
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: redis
+        app: redis-blender
     spec:
       # securityContext:
       #   fsGroup: 10000
@@ -22,7 +22,7 @@ spec:
       #   runAsNonRoot: true
       #   runAsUser: 10000
       containers:
-        - name: redis
+        - name: redis-blender
           args:
             - redis-server
             - "/redis-config/redis.conf"
@@ -53,7 +53,7 @@ spec:
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: env-secrets
+                  name: env-secrets-blender
                   key: REDIS_PASSWORD
           volumeMounts:
             - mountPath: /redis-config

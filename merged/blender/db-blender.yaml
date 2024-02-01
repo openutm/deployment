@@ -23,27 +23,27 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: PGDATA
-                  name: env-secrets
+                  name: env-secrets-blender
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_DB
-                  name: env-secrets
+                  name: env-secrets-blender
             - name: POSTGRES_HOST
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_HOST
-                  name: env-secrets
+                  name: env-secrets-blender
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_PASSWORD
-                  name: env-secrets
+                  name: env-secrets-blender
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_USER
-                  name: env-secrets
+                  name: env-secrets-blender
           image: postgres
           imagePullPolicy: IfNotPresent
           name: db-blender
