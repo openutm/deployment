@@ -2,8 +2,8 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: letsencrypt-nginx-wcard
+  namespace: openutm
   # Cert-Manager will put the resulting Secret in the same Kubernetes namespace as the Certificate.
-  # namespace: openutm
 spec:
   # Secret name to create, where the private key and certificate should be stored.
   secretName: letsencrypt-nginx-wcard-tls
