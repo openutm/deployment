@@ -1,1 +1,1 @@
-openssl genrsa -out merged/passport/oidc.key 4096
+openssl genrsa -out kustomize/passport/oidc.key 4096
