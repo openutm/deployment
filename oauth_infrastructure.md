@@ -4,6 +4,7 @@ In this article you will understand how to deploy the OpenUTM system and the ass
 - Flight Spotlight (Frontend - optional)
 - Flight Passport (Authorization server)
 
+
 ## Overview
 ![openutm-flow](images/openutm-data-flow.png)
 
@@ -15,7 +16,6 @@ In this document, we will setup
 - and finally query the flight data using the API via a tool like Postman.
 
 Flight Blender follows the ASTM standards for access and authorization.
-
 
 ## Detailed Instructions
 

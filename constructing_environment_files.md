@@ -43,19 +43,24 @@ You should now have two APIs and four scopes. We will now create two application
 - One for enabling token issuance for Flight Blender
 - One to enable OIDC logging in 
 ## Create a Application for Flight Blender 
-Go to the Passport Applications section and add a new application. Note that the Client ID and Client secret are automatically generated and you will need to copy it before saving since the secrect is hashed on save. 
+Go to the Passport Applications section and add a new application. Note that the Client ID and Client secret are automatically generated and you will need to copy it before saving since the secret is hashed on save. 
 
 ![create_blender_client](images/environment_files_help/step_4a_blender_client.jpg)
 
 You can see the grant type and other settings as shown above, make sure you use the Blender RW audience that will enable the `blender.read` and `blender.write` scopes. 
 
-You will need the Client ID and Client Secret and the Passport URL to populate Line 7-11 in the environment file. The scope should read 'blender.read blender.write' and the audience should be 'testflight.flightblender.com' or something similar (according to your domain)
+You will need the Client ID and Client Secret and the Passport URL to populate [Line 7-11](https://github.com/openutm/deployment/blob/main/env.examples/.spotlight.env.example#L7-L11) in the environment file. The scope should read 'blender.read blender.write' and the audience should be 'testflight.flightblender.com' or something similar (according to your domain)
+
 ## Create Application for Flight Spotlight Login 
+Go to the Passport Applications section and add a new application. Note that the Client ID and Client secret are automatically generated and you will need to copy it before saving since the secret is hashed on save. 
 
-## Populate the Blender Environment file 
+![create_spotlight_client](images/environment_files_help/step_4b_spotlight_client.jpg)
 
-Deploy Blender
-## Populate the Spotlight Environment file
+You will the Client ID and Client Secret and the Callback URL to fill [Line 22-25](https://github.com/openutm/deployment/blob/main/env.examples/.spotlight.env.example#L22-L25) in the spotlight environment file with the C.
 
+## Populate the rest of the Blender Environment file and Deploy
+Fill in the [proposed URL](https://github.com/openutm/deployment/blob/main/env.examples/.blender.env.example#L15) of Flight Spotlight and redis locations in the file file use the repository to deploy Flight Blender
+## Populate the rest of the Spotlight Environment file
+Fill in the values for [Redis and Tile 38](https://github.com/openutm/deployment/blob/main/env.examples/.spotlight.env.example#L28-L30) and redeploy. 
 
-Deploy Spotlight
+You should be able to login to the system.
