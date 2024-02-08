@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - args:
-            - ./entrypoint-beat.sh
+            - ./entrypoints/with-database/entrypoint-beat.sh
           name: beat
           image: flight-blender
           # imagePullPolicy: IfNotPresent

@@ -16,5 +16,4 @@ spec:
   commonName: "*.${DOMAIN_NAME}"
   # List of DNS subjectAltNames to be set on the Certificate.
   dnsNames:
-    # - "${DOMAIN_NAME}"
     - "*.${DOMAIN_NAME}"

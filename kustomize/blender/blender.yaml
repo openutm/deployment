@@ -23,7 +23,7 @@ spec:
       containers:
         - name: blender
           command:
-            - ./entrypoint.sh
+            - ./entrypoints/with-database/entrypoint.sh
           image: flight-blender
           # imagePullPolicy: IfNotPresent
           ports:

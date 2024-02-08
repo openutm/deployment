@@ -22,7 +22,7 @@ spec:
       serviceAccountName: passport-svc
       containers:
         - args:
-            - ./entrypoint.sh
+            - ./entrypoints/with-database/entrypoint.sh
           name: passport
           image: flight-passport
           # imagePullPolicy: IfNotPresent
