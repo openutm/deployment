@@ -6,6 +6,7 @@ In this article you will understand how to deploy the OpenUTM system and the ass
 - Flight Spotlight (Frontend - optional)
 - Flight Passport (Authorization server)
 
+
 ## Overview
 
 ![openutm-flow](images/openutm-data-flow.png)
