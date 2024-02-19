@@ -18,7 +18,18 @@ spec:
         app: db-blender
     spec:
       containers:
-        - env:
+        - name: db-blender
+          image: postgres
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5432
+              name: postgres
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: db-blender-data
+          env:
             - name: PGDATA
               valueFrom:
                 secretKeyRef:
@@ -44,17 +55,6 @@ spec:
                 secretKeyRef:
                   key: POSTGRES_USER
                   name: env-secrets-blender
-          image: postgres
-          imagePullPolicy: IfNotPresent
-          name: db-blender
-          ports:
-            - containerPort: 5432
-              name: postgres
-              protocol: TCP
-          resources: {}
-          volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: db-blender-data
       restartPolicy: Always
       volumes:
         - name: db-blender-data
