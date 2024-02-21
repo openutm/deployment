@@ -10,6 +10,7 @@ Use the [template](env.examples/.passport.env.local) to fill in your values. The
 - OIDC_RSA_PRIVATE_KEY: For this key you can use a command like `openssl genrsa -out oidc.pem 4096` to generate a private key and paste it there. 
 - DOMAIN_WHITELIST: This is used to allow logins from the domains listed (and prohibiting disallowed domains) e.g. openskies.sh;openutm.net;
 - ESP_*: The project uses [anymail](https://anymail.dev/en/stable/) to send transactional emails, you will need to set it up for your domain if you want to enable email verification and other features e.g. reset password via email etc. 
+- JWT_ISSUER_DOMAIN: Use your domain name if using locally, you can use `http://localhost:8000` or something similar this will be used to populate `iss` claim in the token
  
 ## Login and change password for Flight Passport
 ### Login
