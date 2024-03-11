@@ -27,42 +27,36 @@ spec:
           image: flight-passport
           # imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 9000
+            - name: http
+              containerPort: 9000
           securityContext:
             runAsUser: 10000
             runAsGroup: 10000
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
           resources: {}
           env:
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  key: DATABASE_URL
-                  name: env-secrets-passport
+            - name: POSTGRES_HOST
+              value: "db-passport"
             - name: PGDATA
-              valueFrom:
-                secretKeyRef:
-                  key: PGDATA
-                  name: env-secrets-passport
+              value: "/var/lib/postgresql/data/pgdata"
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_DB
-                  name: env-secrets-passport
-            - name: POSTGRES_HOST
-              valueFrom:
-                secretKeyRef:
-                  key: POSTGRES_HOST
-                  name: env-secrets-passport
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: POSTGRES_PASSWORD
                   name: env-secrets-passport
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_USER
                   name: env-secrets-passport
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: env-secrets-passport
+            - name: DATABASE_URL
+              value: "pgsql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):5432/$(POSTGRES_DB)"
             - name: DJANGO_SECRET_KEY
               valueFrom:
                 secretKeyRef:

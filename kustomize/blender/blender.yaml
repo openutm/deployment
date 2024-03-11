@@ -36,6 +36,32 @@ spec:
             readOnlyRootFilesystem: true
           resources: {}
           env:
+            - name: POSTGRES_HOST
+              value: "db-blender"
+            - name: PGDATA
+              value: "/var/lib/postgresql/data/pgdata"
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_DB
+                  name: env-secrets-blender
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_USER
+                  name: env-secrets-blender
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: env-secrets-blender
+            - name: DATABASE_URL
+              value: "pgsql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):5432/$(POSTGRES_DB)"
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: SECRET_KEY
+                  name: env-secrets-blender
             - name: BLENDER_FQDN
               valueFrom:
                 secretKeyRef:
@@ -66,27 +92,6 @@ spec:
                 secretKeyRef:
                   key: PASSPORT_URL
                   name: env-secrets-blender
-            - name: POSTGRES_HOST
-              value: "db-blender"
-            - name: PGDATA
-              value: "/var/lib/postgresql/data/pgdata"
-            - name: POSTGRES_DB
-              valueFrom:
-                secretKeyRef:
-                  key: POSTGRES_DB
-                  name: env-secrets-blender
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  key: POSTGRES_USER
-                  name: env-secrets-blender
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: POSTGRES_PASSWORD
-                  name: env-secrets-blender
-            - name: DATABASE_URL
-              value: "pgsql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):5432/$(POSTGRES_DB)"
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -98,11 +103,6 @@ spec:
               value: "6379"
             - name: REDIS_BROKER_URL
               value: "redis://:$(REDIS_PASSWORD)@$(REDIS_HOST):$(REDIS_PORT)"
-            - name: SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  key: SECRET_KEY
-                  name: env-secrets-blender
             - name: DJANGO_LOG_LEVEL
               valueFrom:
                 secretKeyRef:
