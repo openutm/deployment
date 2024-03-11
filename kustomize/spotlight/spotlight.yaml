@@ -50,10 +50,7 @@ spec:
                   key: MAPBOX_ID
                   name: env-secrets-spotlight
             - name: BLENDER_BASE_URL
-              valueFrom:
-                secretKeyRef:
-                  key: BLENDER_BASE_URL
-                  name: env-secrets-spotlight
+              value: "http://blender:8000"
             - name: PASSPORT_BLENDER_CLIENT_ID
               valueFrom:
                 secretKeyRef:
@@ -100,25 +97,16 @@ spec:
                   key: DEFAULT_APPROVED
                   name: env-secrets-spotlight
             - name: TILE38_SERVER
-              valueFrom:
-                secretKeyRef:
-                  key: TILE38_SERVER
-                  name: env-secrets-spotlight
+              value: "tile38"
             - name: TILE38_PORT
-              valueFrom:
-                secretKeyRef:
-                  key: TILE38_PORT
-                  name: env-secrets-spotlight
-            - name: REDIS_URL
-              valueFrom:
-                secretKeyRef:
-                  key: REDIS_URL
-                  name: env-secrets-spotlight
+              value: "9851"
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: REDIS_PASSWORD
                   name: env-secrets-spotlight
+            - name: REDIS_URL
+              value: "redis://:$(REDIS_PASSWORD)@redis-spotlight:6379"
             - name: APP_SECRET
               valueFrom:
                 secretKeyRef:
