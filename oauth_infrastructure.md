@@ -6,7 +6,6 @@ In this article you will understand how to deploy the OpenUTM system and the ass
 - Flight Spotlight (Frontend - optional)
 - Flight Passport (Authorization server)
 
-
 ## Overview
 
 ![openutm-flow](images/openutm-data-flow.png)
@@ -15,7 +14,7 @@ In this article you will understand how to deploy the OpenUTM system and the ass
 
 In this document, we will setup
 
-- Flight Blender via Docker and then
+- Flight Blender via Kubernetes and then
 - use the importers to submit some flight information
 - and finally query the flight data using the API via a tool like Postman.
 

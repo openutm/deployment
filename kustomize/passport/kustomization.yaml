@@ -6,6 +6,7 @@ namespace: openutm
 images:
   - name: flight-passport
     newName: registry.digitalocean.com/utmtest/flight-passport:latest
+    # newName: openskiessh/flight-passport:latest
 
 generatorOptions:
   disableNameSuffixHash: true # this flag is used to avoid creation of new configmap, instead it will be modified when file context is changed

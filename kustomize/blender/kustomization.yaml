@@ -6,6 +6,8 @@ namespace: openutm
 images:
   - name: flight-blender
     newName: registry.digitalocean.com/utmtest/flight-blender:latest
+    # newName: openskiessh/flight-blender:latest
+
 
 generatorOptions:
   disableNameSuffixHash: true # this flag is used to avoid creation of new configmap, instead it will be modified when file context is changed
