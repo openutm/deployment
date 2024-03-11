@@ -46,11 +46,6 @@ spec:
                 secretKeyRef:
                   key: BYPASS_AUTH_TOKEN_VERIFICATION
                   name: env-secrets-blender
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  key: DATABASE_URL
-                  name: env-secrets-blender
             - name: HEARTBEAT_RATE_SECS
               valueFrom:
                 secretKeyRef:
@@ -71,51 +66,38 @@ spec:
                 secretKeyRef:
                   key: PASSPORT_URL
                   name: env-secrets-blender
+            - name: POSTGRES_HOST
+              value: "db-blender"
             - name: PGDATA
-              valueFrom:
-                secretKeyRef:
-                  key: PGDATA
-                  name: env-secrets-blender
+              value: "/var/lib/postgresql/data/pgdata"
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_DB
-                  name: env-secrets-blender
-            - name: POSTGRES_HOST
-              valueFrom:
-                secretKeyRef:
-                  key: POSTGRES_HOST
-                  name: env-secrets-blender
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: POSTGRES_PASSWORD
                   name: env-secrets-blender
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_USER
                   name: env-secrets-blender
-            - name: REDIS_BROKER_URL
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: REDIS_BROKER_URL
+                  key: POSTGRES_PASSWORD
                   name: env-secrets-blender
-            - name: REDIS_HOST
-              valueFrom:
-                secretKeyRef:
-                  key: REDIS_HOST
-                  name: env-secrets-blender
+            - name: DATABASE_URL
+              value: "pgsql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):5432/$(POSTGRES_DB)"
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: REDIS_PASSWORD
                   name: env-secrets-blender
+            - name: REDIS_HOST
+              value: "redis-blender"
             - name: REDIS_PORT
-              valueFrom:
-                secretKeyRef:
-                  key: REDIS_PORT
-                  name: env-secrets-blender
+              value: "6379"
+            - name: REDIS_BROKER_URL
+              value: "redis://:$(REDIS_PASSWORD)@$(REDIS_HOST):$(REDIS_PORT)"
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:

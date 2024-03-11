@@ -31,29 +31,23 @@ spec:
               name: db-blender-data
           env:
             - name: PGDATA
-              valueFrom:
-                secretKeyRef:
-                  key: PGDATA
-                  name: env-secrets-blender
+              value: "/var/lib/postgresql/data/pgdata"
+            - name: POSTGRES_HOST
+              value: "db-blender"
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_DB
                   name: env-secrets-blender
-            - name: POSTGRES_HOST
+            - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  key: POSTGRES_HOST
+                  key: POSTGRES_USER
                   name: env-secrets-blender
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_PASSWORD
-                  name: env-secrets-blender
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  key: POSTGRES_USER
                   name: env-secrets-blender
       restartPolicy: Always
       volumes:
