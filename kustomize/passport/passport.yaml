@@ -21,10 +21,10 @@ spec:
     spec:
       serviceAccountName: passport-svc
       containers:
-        - args:
-            - ./entrypoint.sh
-          name: passport
+        - name: passport
           image: flight-passport
+          command:
+            - ./entrypoint-prod.sh
           # imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -107,5 +107,11 @@ spec:
                 secretKeyRef:
                   key: DOMAIN_WHITELIST
                   name: env-secrets-passport
+          volumeMounts:
+          - name: tmp
+            mountPath: /tmp
+      volumes:
+      - name: tmp
+        emptyDir: {}
       imagePullSecrets:
         - name: registry-utmtest

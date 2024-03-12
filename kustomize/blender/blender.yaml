@@ -22,9 +22,9 @@ spec:
       serviceAccountName: blender-svc
       containers:
         - name: blender
-          command:
-            - ./entrypoints/with-database/entrypoint.sh
           image: flight-blender
+          command:
+            - ./entrypoints/with-database/entrypoint-prod.sh
           # imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -108,5 +108,11 @@ spec:
                 secretKeyRef:
                   key: DJANGO_LOG_LEVEL
                   name: env-secrets-blender
+          volumeMounts:
+          - name: tmp
+            mountPath: /tmp
+      volumes:
+      - name: tmp
+        emptyDir: {}
       imagePullSecrets:
         - name: registry-utmtest
