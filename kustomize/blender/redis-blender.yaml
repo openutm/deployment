@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: redis-blender
+  name: redis-blender
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-blender
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: redis-blender
+    spec:
+      # securityContext:
+      #   fsGroup: 10000
+      #   runAsGroup: 10000
+      #   runAsNonRoot: true
+      #   runAsUser: 10000
+      containers:
+        - name: redis-blender
+          args:
+            - redis-server
+            - "/redis-config/redis.conf"
+            - "--requirepass"
+            - "$(REDIS_PASSWORD)"
+          image: redis:latest
+          imagePullPolicy: IfNotPresent
+          # securityContext:
+          #   allowPrivilegeEscalation: false
+          #   capabilities:
+          #     drop:
+          #       - all
+          #   privileged: false
+          #   readOnlyRootFilesystem: true
+          ports:
+            - containerPort: 6379
+              protocol: TCP
+              name: redis
+          # readinessProbe:
+          #   periodSeconds: 5
+          #   tcpSocket:
+          #     port: 6379
+          # livenessProbe:
+          #   periodSeconds: 5
+          #   tcpSocket:
+          #     port: 6379
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: env-secrets-blender
+                  key: REDIS_PASSWORD
+          volumeMounts:
+            - mountPath: /redis-config
+              name: config
+          resources: {}
+      volumes:
+        - name: config
+          configMap:
+            name: redis-blender-config
+            items:
+              - key: redis.conf
+                path: redis.conf
+      restartPolicy: Always
+status: {}

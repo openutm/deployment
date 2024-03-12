@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: db-blender
+  name: db-blender
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-blender
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.network/blender-default: "true"
+        app: db-blender
+    spec:
+      containers:
+        - name: db-blender
+          image: postgres
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5432
+              name: postgres
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: db-blender-data
+          env:
+            - name: PGDATA
+              value: "/var/lib/postgresql/data/pgdata"
+            - name: POSTGRES_HOST
+              value: "db-blender"
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_DB
+                  name: env-secrets-blender
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_USER
+                  name: env-secrets-blender
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: env-secrets-blender
+      restartPolicy: Always
+      volumes:
+        - name: db-blender-data
+          persistentVolumeClaim:
+            claimName: db-blender-data
+status: {}
