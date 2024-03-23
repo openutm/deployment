@@ -18,17 +18,44 @@ spec:
         version: v1
     spec:
       containers:
-        - args:
-            - ./entrypoints/with-database/entrypoint-beat.sh
-          name: beat
+        - name: beat
           image: flight-blender
+          command:
+            - ./entrypoints/with-database/entrypoint-beat.sh
           # imagePullPolicy: IfNotPresent
-          # ports:
-          #   - containerPort: 8000
           securityContext:
-            runAsUser: 1000
+            runAsUser: 10000
+            runAsGroup: 10000
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
           resources: {}
           env:
+            - name: POSTGRES_HOST
+              value: "db-blender"
+            - name: PGDATA
+              value: "/var/lib/postgresql/data/pgdata"
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_DB
+                  name: env-secrets-blender
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_USER
+                  name: env-secrets-blender
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: env-secrets-blender
+            - name: DATABASE_URL
+              value: "pgsql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):5432/$(POSTGRES_DB)"
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: SECRET_KEY
+                  name: env-secrets-blender
             - name: BLENDER_FQDN
               valueFrom:
                 secretKeyRef:
@@ -38,11 +65,6 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: BYPASS_AUTH_TOKEN_VERIFICATION
-                  name: env-secrets-blender
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  key: DATABASE_URL
                   name: env-secrets-blender
             - name: HEARTBEAT_RATE_SECS
               valueFrom:
@@ -64,55 +86,21 @@ spec:
                 secretKeyRef:
                   key: PASSPORT_URL
                   name: env-secrets-blender
-            - name: PGDATA
-              valueFrom:
-                secretKeyRef:
-                  key: PGDATA
-                  name: env-secrets-blender
-            - name: POSTGRES_DB
-              valueFrom:
-                secretKeyRef:
-                  key: POSTGRES_DB
-                  name: env-secrets-blender
-            - name: POSTGRES_HOST
-              valueFrom:
-                secretKeyRef:
-                  key: POSTGRES_HOST
-                  name: env-secrets-blender
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: POSTGRES_PASSWORD
-                  name: env-secrets-blender
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  key: POSTGRES_USER
-                  name: env-secrets-blender
-            - name: REDIS_BROKER_URL
-              valueFrom:
-                secretKeyRef:
-                  key: REDIS_BROKER_URL
-                  name: env-secrets-blender
-            - name: REDIS_HOST
-              valueFrom:
-                secretKeyRef:
-                  key: REDIS_HOST
-                  name: env-secrets-blender
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: REDIS_PASSWORD
                   name: env-secrets-blender
+            - name: REDIS_HOST
+              value: "redis-blender"
             - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_BROKER_URL
+              value: "redis://:$(REDIS_PASSWORD)@$(REDIS_HOST):$(REDIS_PORT)"
+            - name: DJANGO_LOG_LEVEL
               valueFrom:
                 secretKeyRef:
-                  key: REDIS_PORT
-                  name: env-secrets-blender
-            - name: SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  key: SECRET_KEY
+                  key: DJANGO_LOG_LEVEL
                   name: env-secrets-blender
       imagePullSecrets:
         - name: registry-utmtest

@@ -44,7 +44,7 @@ You will need to create four scopes (two for login / profile information and two
 
 You will need to create two apis, that define how these scopes will be used in the "application". We will create two APIs one for the login and one for reading and writing data into Flight Blender.
 ![create_api_blender_rw](images/environment_files_help/step_3a_create_api_blender_rw.jpg)
-Noe the Identifier parameter should be exactly the the same as the domain / sub-domain of Blender since tokens will be issued with `aud` parameter for this domain.
+Note the Identifier parameter should be exactly the the same as the domain / sub-domain of Blender since tokens will be issued with `aud` parameter for this domain.
 
 This is shown below.
 
