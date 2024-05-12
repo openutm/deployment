@@ -8,7 +8,7 @@ In this article you will understand how build the environment files for the Open
 
 ## Create the Passport Environment file
 
-Use the [template](env.examples/.passport.env.local) to fill in your values. The file should be self-explanatory some notes for some of the variables are below:
+Use the [template](env.examples/.passport.env.example) to fill in your values. The file should be self-explanatory some notes for some of the variables are below:
 
 - `OIDC_RSA_PRIVATE_KEY`: For this key you can use a command like `openssl genrsa -out oidc.pem 4096` to generate a private key and paste it there.
 - `DOMAIN_WHITELIST`: This is used to allow logins from the domains listed (and prohibiting disallowed domains) e.g. `openskies.sh;openutm.net;`
