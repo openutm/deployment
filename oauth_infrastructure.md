@@ -113,4 +113,4 @@ For Advanced operations, the following two configurations are recommended:
 
 ### Running Flight Blender
 
-You can run Blender by running `kubectl apply -k kustomize` and then go to `https://blender.$DOMAIN_NAME`, where `$DOMAIN_NAME` is your domain name for the deployment.
+You can run Blender by running `kubectl apply -k kustomize` and then go to `https://argon-server.$DOMAIN_NAME`, where `$DOMAIN_NAME` is your domain name for the deployment.

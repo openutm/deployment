@@ -75,7 +75,7 @@ You will the Client ID and Client Secret and the Callback URL to fill [Line 22-2
 
 ## Populate the rest of the Blender Environment file and Deploy
 
-Fill in the [proposed URL](https://github.com/openutm/deployment/blob/main/env.examples/.blender.env.example#L15) of Flight Spotlight and redis locations in the file file use the repository to deploy Flight Blender
+Fill in the [proposed URL](https://github.com/openutm/deployment/blob/main/env.examples/.argon-server.env.example#L15) of Flight Spotlight and redis locations in the file file use the repository to deploy Flight Blender
 
 ## Populate the rest of the Spotlight Environment file
 
