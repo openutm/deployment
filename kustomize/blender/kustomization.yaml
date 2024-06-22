@@ -4,31 +4,31 @@ kind: Kustomization
 namespace: openutm
 
 images:
-  - name: flight-blender
-    newName: registry.digitalocean.com/utmtest/flight-blender:latest
-    # newName: openskiessh/flight-blender:latest
+  - name: argon-server
+    newName: registry.digitalocean.com/utmtest/argon-server:latest
+    # newName: openskiessh/argon-server:latest
 
 
 generatorOptions:
   disableNameSuffixHash: true # this flag is used to avoid creation of new configmap, instead it will be modified when file context is changed
 
 configMapGenerator:
-  - name: redis-blender-config
+  - name: redis-argon-server-config
     files:
       - redis.conf
 
 secretGenerator:
-  - name: env-secrets-blender
+  - name: env-secrets-argon-server
     envs:
-      - .env.blender
+      - .env.argon-server
 
 resources:
-  - blender.yaml
-  - blender-service.yaml
+  - argon-server.yaml
+  - argon-server-service.yaml
   - worker.yaml
   - beat.yaml
-  - db-blender.yaml
-  - db-blender-pvc.yaml
-  - db-blender-service.yaml
-  - redis-blender.yaml
-  - redis-blender-service.yaml
+  - db-argon-server.yaml
+  - db-argon-server-pvc.yaml
+  - db-argon-server-service.yaml
+  - redis-argon-server.yaml
+  - redis-argon-server-service.yaml

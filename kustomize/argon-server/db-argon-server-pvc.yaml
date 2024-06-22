@@ -2,8 +2,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   labels:
-    app: db-blender-data
-  name: db-blender-data
+    app: db-argon-server-data
+  name: db-argon-server-data
 spec:
   accessModes:
     - ReadWriteOnce

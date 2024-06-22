@@ -2,19 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: redis-blender
-  name: redis-blender
+    app: redis-argon-server
+  name: redis-argon-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: redis-blender
+      app: redis-argon-server
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: redis-blender
+        app: redis-argon-server
     spec:
       # securityContext:
       #   fsGroup: 10000
@@ -22,13 +22,13 @@ spec:
       #   runAsNonRoot: true
       #   runAsUser: 10000
       containers:
-        - name: redis-blender
+        - name: redis-argon-server
           args:
             - redis-server
             - "/redis-config/redis.conf"
             - "--requirepass"
             - "$(REDIS_PASSWORD)"
-          image: redis:latest
+          image: valkey/valkey:latest
           imagePullPolicy: IfNotPresent
           # securityContext:
           #   allowPrivilegeEscalation: false
@@ -53,7 +53,7 @@ spec:
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: env-secrets-blender
+                  name: env-secrets-argon-server
                   key: REDIS_PASSWORD
           volumeMounts:
             - mountPath: /redis-config
@@ -62,7 +62,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: redis-blender-config
+            name: redis-argon-server-config
             items:
               - key: redis.conf
                 path: redis.conf

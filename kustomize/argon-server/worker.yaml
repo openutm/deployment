@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: beat
+  name: worker
   labels:
-    app: beat
+    app: worker
     version: v1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: beat
+      app: worker
       version: v1
   template:
     metadata:
       labels:
-        app: beat
+        app: worker
         version: v1
     spec:
       containers:
-        - name: beat
-          image: flight-blender
+        - name: worker
+          image: argon-server
           command:
-            - ./entrypoints/with-database/entrypoint-beat.sh
+            - ./entrypoints/with-database/entrypoint-celery.sh
           # imagePullPolicy: IfNotPresent
           securityContext:
             runAsUser: 10000
@@ -31,68 +31,68 @@ spec:
           resources: {}
           env:
             - name: POSTGRES_HOST
-              value: "db-blender"
+              value: "db-argon-server"
             - name: PGDATA
               value: "/var/lib/postgresql/data/pgdata"
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_DB
-                  name: env-secrets-blender
+                  name: env-secrets-argon-server
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_USER
-                  name: env-secrets-blender
+                  name: env-secrets-argon-server
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_PASSWORD
-                  name: env-secrets-blender
+                  name: env-secrets-argon-server
             - name: DATABASE_URL
               value: "pgsql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):5432/$(POSTGRES_DB)"
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
                   key: SECRET_KEY
-                  name: env-secrets-blender
+                  name: env-secrets-argon-server
             - name: BLENDER_FQDN
               valueFrom:
                 secretKeyRef:
                   key: BLENDER_FQDN
-                  name: env-secrets-blender
+                  name: env-secrets-argon-server
             - name: BYPASS_AUTH_TOKEN_VERIFICATION
               valueFrom:
                 secretKeyRef:
                   key: BYPASS_AUTH_TOKEN_VERIFICATION
-                  name: env-secrets-blender
+                  name: env-secrets-argon-server
             - name: HEARTBEAT_RATE_SECS
               valueFrom:
                 secretKeyRef:
                   key: HEARTBEAT_RATE_SECS
-                  name: env-secrets-blender
+                  name: env-secrets-argon-server
             - name: IS_DEBUG
               valueFrom:
                 secretKeyRef:
                   key: IS_DEBUG
-                  name: env-secrets-blender
+                  name: env-secrets-argon-server
             - name: PASSPORT_AUDIENCE
               valueFrom:
                 secretKeyRef:
                   key: PASSPORT_AUDIENCE
-                  name: env-secrets-blender
+                  name: env-secrets-argon-server
             - name: PASSPORT_URL
               valueFrom:
                 secretKeyRef:
                   key: PASSPORT_URL
-                  name: env-secrets-blender
+                  name: env-secrets-argon-server
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: REDIS_PASSWORD
-                  name: env-secrets-blender
+                  name: env-secrets-argon-server
             - name: REDIS_HOST
-              value: "redis-blender"
+              value: "redis-argon-server"
             - name: REDIS_PORT
               value: "6379"
             - name: REDIS_BROKER_URL
@@ -101,6 +101,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: DJANGO_LOG_LEVEL
-                  name: env-secrets-blender
+                  name: env-secrets-argon-server
+          volumeMounts:
+          - name: tmp
+            mountPath: /tmp
+      volumes:
+      - name: tmp
+        emptyDir: {}
       imagePullSecrets:
         - name: registry-utmtest

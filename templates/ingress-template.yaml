@@ -16,14 +16,14 @@ spec:
         - "*.${DOMAIN_NAME}"
       secretName: letsencrypt-nginx-wcard-ingress
   rules:
-    - host: "blender.${DOMAIN_NAME}"
+    - host: "argon-server.${DOMAIN_NAME}"
       http:
         paths:
           - pathType: Prefix
             path: /
             backend:
               service:
-                name: blender
+                name: argon-server
                 port:
                   number: 8000
     - host: "passport.${DOMAIN_NAME}"

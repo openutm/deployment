@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       labels:
-        io.kompose.network/blender-default: "true"
+        io.kompose.network/argon-server-default: "true"
         app: tile38
     spec:
       containers:
