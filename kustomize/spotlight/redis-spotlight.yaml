@@ -23,7 +23,7 @@ spec:
             - "/redis-config/redis.conf"
             - "--requirepass"
             - "$(REDIS_PASSWORD)"
-          image: redis:latest
+          image: valkey/valkey:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 6379

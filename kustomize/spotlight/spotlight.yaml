@@ -44,6 +44,11 @@ spec:
                 secretKeyRef:
                   key: BING_KEY
                   name: env-secrets-spotlight
+            - name: MAPBOX_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: MAPBOX_KEY
+                  name: env-secrets-spotlight
             - name: MAPBOX_ID
               valueFrom:
                 secretKeyRef:

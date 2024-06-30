@@ -35,8 +35,8 @@ You will need to create four scopes (two for login / profile information and two
 
 - `openid`
 - `profile`
-- `blender.read`
-- `blender.write`
+- `argonserver.read`
+- `argonserver.write`
 
 ![scopes_list](images/environment_files_help/step_2b_scopes_list.jpg)
 
@@ -61,9 +61,9 @@ Go to the Passport Applications section and add a new application. Note that the
 
 ![create_blender_client](images/environment_files_help/step_4a_blender_client.jpg)
 
-You can see the grant type and other settings as shown above, make sure you use the Blender RW audience that will enable the `blender.read` and `blender.write` scopes.
+You can see the grant type and other settings as shown above, make sure you use the Blender RW audience that will enable the `argonserver.read` and `argonserver.write` scopes.
 
-You will need the Client ID and Client Secret and the Passport URL to populate [Line 7-11](https://github.com/openutm/deployment/blob/main/env.examples/.spotlight.env.example#L7-L11) in the environment file. The scope should read `blender.read blender.write` and the audience should be `testflight.flightblender.com` or something similar (according to your domain)
+You will need the Client ID and Client Secret and the Passport URL to populate [Line 7-11](https://github.com/openutm/deployment/blob/main/env.examples/.spotlight.env.example#L7-L11) in the environment file. The scope should read `argonserver.read argonserver.write` and the audience should be `testflight.flightblender.com` or something similar (according to your domain)
 
 ## Create Application for Flight Spotlight Login
 

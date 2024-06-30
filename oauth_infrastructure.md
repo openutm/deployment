@@ -87,7 +87,7 @@ The section below details the environment file variables and a short comment on 
 | `DSS_BASE_URL` | - |
 | `DSS_AUTH_TOKEN_ENDPOINT` | - |
 | `DSS_AUTH_JWKS_ENDPOINT` | - |
-| `BLENDER_FQDN` | - |
+| `ARGON_SERVER_FQDN` | - |
 
 ## **6**
 
@@ -110,7 +110,3 @@ For Advanced operations, the following two configurations are recommended:
 |--------------|--------------|-----|
 | `AMQP_URL` |string | (Optional) A full connection url to a AMQP server, when this is set, messages related to your operations are sent to it, your clients can subscribe to them. |
 | `ENABLE_CONFORMANCE_MONITORING` | int | (Optional) By default conformance monitoring is turned off, set this flag if you want to enable conformance monitoring. Conformance monitoring is a advanced UTM service so it is recommended that this service be turned off initially. |
-
-### Running Flight Blender
-
-You can run Blender by running `kubectl apply -k kustomize` and then go to `https://argon-server.$DOMAIN_NAME`, where `$DOMAIN_NAME` is your domain name for the deployment.

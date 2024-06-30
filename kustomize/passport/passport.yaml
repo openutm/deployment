@@ -102,6 +102,11 @@ spec:
                 secretKeyRef:
                   key: JWT_ISSUER_DOMAIN
                   name: env-secrets-passport
+            - name: JWT_ISSUER_NAME
+              valueFrom:
+                secretKeyRef:
+                  key: JWT_ISSUER_NAME
+                  name: env-secrets-passport
             - name: DOMAIN_WHITELIST
               valueFrom:
                 secretKeyRef:

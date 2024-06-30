@@ -1,5 +1,5 @@
-export DOMAIN_NAME="utm.pingzone.ie"
-export ACME_CONTACT_EMAIL="info+openutm@pingzone.ie"
+export DOMAIN_NAME="test.example.com"
+export ACME_CONTACT_EMAIL="test@example.com"
 
 for file_name in issuer certificate-wcard certificate-root ingress; do
     (
