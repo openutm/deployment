@@ -1,0 +1,77 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-apps
+  namespace: openutm
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/issuer: "letsencrypt-nginx-issuer"
+    acme.cert-manager.io/dns01-edit-in-place: "true"
+  labels:
+    app: nginx
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - "*.${DOMAIN_NAME}"
+      secretName: letsencrypt-nginx-wcard-ingress
+  rules:
+    - host: "argon-server.${DOMAIN_NAME}"
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: argon-server
+                port:
+                  number: 8000
+    - host: "passport.${DOMAIN_NAME}"
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: passport
+                port:
+                  number: 9000
+    - host: "spotlight.${DOMAIN_NAME}"
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: spotlight
+                port:
+                  number: 5000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-root
+  namespace: openutm
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/issuer: "letsencrypt-nginx-issuer"
+    nginx.ingress.kubernetes.io/permanent-redirect: https://spotlight.${DOMAIN_NAME}
+  labels:
+    app: nginx
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - "${DOMAIN_NAME}"
+      secretName: letsencrypt-nginx-root-ingress
+  rules:
+    - host: "${DOMAIN_NAME}"
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: spotlight
+                port:
+                  number: 5000

@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: db-argon-server
+  name: db-argon-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-argon-server
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.network/argon-server-default: "true"
+        app: db-argon-server
+    spec:
+      containers:
+        - name: db-argon-server
+          image: postgres
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5432
+              name: postgres
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: db-argon-server-data
+          env:
+            - name: PGDATA
+              value: "/var/lib/postgresql/data/pgdata"
+            - name: POSTGRES_HOST
+              value: "db-argon-server"
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_DB
+                  name: env-secrets-argon-server
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_USER
+                  name: env-secrets-argon-server
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: env-secrets-argon-server
+      restartPolicy: Always
+      volumes:
+        - name: db-argon-server-data
+          persistentVolumeClaim:
+            claimName: db-argon-server-data
+status: {}
