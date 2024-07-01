@@ -62,10 +62,10 @@ spec:
                 secretKeyRef:
                   key: SECRET_KEY
                   name: env-secrets-argon-server
-            - name: ARGON_SERVER_FQDN
+            - name: ARGONSERVER_FQDN
               valueFrom:
                 secretKeyRef:
-                  key: ARGON_SERVER_FQDN
+                  key: ARGONSERVER_FQDN
                   name: env-secrets-argon-server
             - name: BYPASS_AUTH_TOKEN_VERIFICATION
               valueFrom:
