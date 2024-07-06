@@ -55,7 +55,7 @@ spec:
                   key: MAPBOX_ID
                   name: env-secrets-spotlight
             - name: BLENDER_BASE_URL
-              value: "http://argon-server:8000"
+              value: "http://blender:8000"
             - name: PASSPORT_BLENDER_CLIENT_ID
               valueFrom:
                 secretKeyRef:

@@ -5,6 +5,6 @@ namespace: openutm
 
 resources:
   - namespace.yaml
-  - argon-server
+  - blender
   - passport
   - spotlight

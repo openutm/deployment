@@ -73,8 +73,8 @@ helm install cert-manager jetstack/cert-manager \
 
 ```bash
 └── kustomize
-    ├── argon-server
-    │   └── .env.argon-server
+    ├── blender
+    │   └── .env.blender
     ├── passport
     │   └── .env.passport
     └── spotlight
@@ -130,7 +130,7 @@ kubectl apply -f ingress.yaml
 
 It will take some time for all components to settle and acquire  certificates. After that, your apps should be accessible under the following domains with trusted certificates:
 
-- `https://argon-server.$DOMAIN_NAME`
+- `https://blender.$DOMAIN_NAME`
 - `https://spotlight.$DOMAIN_NAME`
 - `https://passport.$DOMAIN_NAME`
 

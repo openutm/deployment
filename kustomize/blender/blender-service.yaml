@@ -2,14 +2,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: argon-server
+  name: blender
   labels:
-    app: argon-server
-    service: argon-server
+    app: blender
+    service: blender
 spec:
   type: ClusterIP
   selector:
-    app: argon-server
+    app: blender
   ports:
     - name: http
       port: 8000
@@ -18,7 +18,7 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: argon-server-svc
+  name: blender-svc
   labels:
-    account: argon-server
+    account: blender
 ---

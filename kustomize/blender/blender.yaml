@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: argon-server
+  name: blender
   labels:
-    app: argon-server
+    app: blender
     version: v1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: argon-server
+      app: blender
       version: v1
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: argon-server
+        app: blender
         version: v1
     spec:
-      serviceAccountName: argon-server-svc
+      serviceAccountName: blender-svc
       containers:
-        - name: argon-server
-          image: argon-server
+        - name: blender
+          image: blender
           command:
             - ./entrypoints/with-database/entrypoint-prod.sh
           # imagePullPolicy: IfNotPresent
@@ -37,68 +37,68 @@ spec:
           resources: {}
           env:
             - name: POSTGRES_HOST
-              value: "db-argon-server"
+              value: "db-blender"
             - name: PGDATA
               value: "/var/lib/postgresql/data/pgdata"
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_DB
-                  name: env-secrets-argon-server
+                  name: env-secrets-blender
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_USER
-                  name: env-secrets-argon-server
+                  name: env-secrets-blender
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_PASSWORD
-                  name: env-secrets-argon-server
+                  name: env-secrets-blender
             - name: DATABASE_URL
               value: "pgsql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):5432/$(POSTGRES_DB)"
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
                   key: SECRET_KEY
-                  name: env-secrets-argon-server
+                  name: env-secrets-blender
             - name: ARGONSERVER_FQDN
               valueFrom:
                 secretKeyRef:
                   key: ARGONSERVER_FQDN
-                  name: env-secrets-argon-server
+                  name: env-secrets-blender
             - name: BYPASS_AUTH_TOKEN_VERIFICATION
               valueFrom:
                 secretKeyRef:
                   key: BYPASS_AUTH_TOKEN_VERIFICATION
-                  name: env-secrets-argon-server
+                  name: env-secrets-blender
             - name: HEARTBEAT_RATE_SECS
               valueFrom:
                 secretKeyRef:
                   key: HEARTBEAT_RATE_SECS
-                  name: env-secrets-argon-server
+                  name: env-secrets-blender
             - name: IS_DEBUG
               valueFrom:
                 secretKeyRef:
                   key: IS_DEBUG
-                  name: env-secrets-argon-server
+                  name: env-secrets-blender
             - name: PASSPORT_AUDIENCE
               valueFrom:
                 secretKeyRef:
                   key: PASSPORT_AUDIENCE
-                  name: env-secrets-argon-server
+                  name: env-secrets-blender
             - name: PASSPORT_URL
               valueFrom:
                 secretKeyRef:
                   key: PASSPORT_URL
-                  name: env-secrets-argon-server
+                  name: env-secrets-blender
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: REDIS_PASSWORD
-                  name: env-secrets-argon-server
+                  name: env-secrets-blender
             - name: REDIS_HOST
-              value: "redis-argon-server"
+              value: "redis-blender"
             - name: REDIS_PORT
               value: "6379"
             - name: REDIS_BROKER_URL
@@ -107,7 +107,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: DJANGO_LOG_LEVEL
-                  name: env-secrets-argon-server
+                  name: env-secrets-blender
           volumeMounts:
           - name: tmp
             mountPath: /tmp
