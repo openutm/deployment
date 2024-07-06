@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: redis-spotlight
+  name: redis-spotlight
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-spotlight
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: redis-spotlight
+    spec:
+      containers:
+        - name: redis-spotlight
+          args:
+            - redis-server
+            - "/redis-config/redis.conf"
+            - "--requirepass"
+            - "$(REDIS_PASSWORD)"
+          image: valkey/valkey:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6379
+              protocol: TCP
+              name: redis
+          # readinessProbe:
+          #   periodSeconds: 5
+          #   tcpSocket:
+          #     port: 6379
+          # livenessProbe:
+          #   periodSeconds: 5
+          #   tcpSocket:
+          #     port: 6379
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: env-secrets-spotlight
+                  key: REDIS_PASSWORD
+          volumeMounts:
+            - mountPath: /redis-config
+              name: config
+          resources: {}
+      volumes:
+        - name: config
+          configMap:
+            name: redis-spotlight-config
+            items:
+              - key: redis.conf
+                path: redis.conf
+      restartPolicy: Always
+status: {}

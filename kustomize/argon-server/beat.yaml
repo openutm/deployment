@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beat
+  labels:
+    app: beat
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: beat
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: beat
+        version: v1
+    spec:
+      containers:
+        - name: beat
+          image: argon-server
+          command:
+            - ./entrypoints/with-database/entrypoint-beat.sh
+          # imagePullPolicy: IfNotPresent
+          securityContext:
+            runAsUser: 10000
+            runAsGroup: 10000
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+          resources: {}
+          env:
+            - name: POSTGRES_HOST
+              value: "db-argon-server"
+            - name: PGDATA
+              value: "/var/lib/postgresql/data/pgdata"
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_DB
+                  name: env-secrets-argon-server
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_USER
+                  name: env-secrets-argon-server
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: env-secrets-argon-server
+            - name: DATABASE_URL
+              value: "pgsql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):5432/$(POSTGRES_DB)"
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: SECRET_KEY
+                  name: env-secrets-argon-server
+            - name: ARGONSERVER_FQDN
+              valueFrom:
+                secretKeyRef:
+                  key: ARGONSERVER_FQDN
+                  name: env-secrets-argon-server
+            - name: BYPASS_AUTH_TOKEN_VERIFICATION
+              valueFrom:
+                secretKeyRef:
+                  key: BYPASS_AUTH_TOKEN_VERIFICATION
+                  name: env-secrets-argon-server
+            - name: HEARTBEAT_RATE_SECS
+              valueFrom:
+                secretKeyRef:
+                  key: HEARTBEAT_RATE_SECS
+                  name: env-secrets-argon-server
+            - name: IS_DEBUG
+              valueFrom:
+                secretKeyRef:
+                  key: IS_DEBUG
+                  name: env-secrets-argon-server
+            - name: PASSPORT_AUDIENCE
+              valueFrom:
+                secretKeyRef:
+                  key: PASSPORT_AUDIENCE
+                  name: env-secrets-argon-server
+            - name: PASSPORT_URL
+              valueFrom:
+                secretKeyRef:
+                  key: PASSPORT_URL
+                  name: env-secrets-argon-server
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: REDIS_PASSWORD
+                  name: env-secrets-argon-server
+            - name: REDIS_HOST
+              value: "redis-argon-server"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_BROKER_URL
+              value: "redis://:$(REDIS_PASSWORD)@$(REDIS_HOST):$(REDIS_PORT)"
+            - name: DJANGO_LOG_LEVEL
+              valueFrom:
+                secretKeyRef:
+                  key: DJANGO_LOG_LEVEL
+                  name: env-secrets-argon-server
+      imagePullSecrets:
+        - name: registry-utmtest

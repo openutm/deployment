@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-spotlight
+  labels:
+    app: redis-spotlight
+    service: redis-spotlight
+spec:
+  type: ClusterIP
+  selector:
+    app: redis-spotlight
+  ports:
+    - name: redis
+      port: 6379
+      targetPort: redis
