@@ -1,0 +1,34 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: openutm
+
+images:
+  - name: blender
+    newName: registry.digitalocean.com/utmtest/blender:latest
+    # newName: openskiessh/blender:latest
+
+
+generatorOptions:
+  disableNameSuffixHash: true # this flag is used to avoid creation of new configmap, instead it will be modified when file context is changed
+
+configMapGenerator:
+  - name: redis-blender-config
+    files:
+      - redis.conf
+
+secretGenerator:
+  - name: env-secrets-blender
+    envs:
+      - .env.blender
+
+resources:
+  - blender.yaml
+  - blender-service.yaml
+  - worker.yaml
+  - beat.yaml
+  - db-blender.yaml
+  - db-blender-pvc.yaml
+  - db-blender-service.yaml
+  - redis-blender.yaml
+  - redis-blender-service.yaml

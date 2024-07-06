@@ -2,23 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: db-argon-server
-  name: db-argon-server
+    app: db-blender
+  name: db-blender
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: db-argon-server
+      app: db-blender
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        io.kompose.network/argon-server-default: "true"
-        app: db-argon-server
+        io.kompose.network/blender-default: "true"
+        app: db-blender
     spec:
       containers:
-        - name: db-argon-server
+        - name: db-blender
           image: postgres
           imagePullPolicy: IfNotPresent
           ports:
@@ -28,30 +28,30 @@ spec:
           resources: {}
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: db-argon-server-data
+              name: db-blender-data
           env:
             - name: PGDATA
               value: "/var/lib/postgresql/data/pgdata"
             - name: POSTGRES_HOST
-              value: "db-argon-server"
+              value: "db-blender"
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_DB
-                  name: env-secrets-argon-server
+                  name: env-secrets-blender
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_USER
-                  name: env-secrets-argon-server
+                  name: env-secrets-blender
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_PASSWORD
-                  name: env-secrets-argon-server
+                  name: env-secrets-blender
       restartPolicy: Always
       volumes:
-        - name: db-argon-server-data
+        - name: db-blender-data
           persistentVolumeClaim:
-            claimName: db-argon-server-data
+            claimName: db-blender-data
 status: {}

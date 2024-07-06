@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       labels:
-        io.kompose.network/argon-server-default: "true"
+        io.kompose.network/blender-default: "true"
         app: db-passport
     spec:
       containers:
