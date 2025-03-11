@@ -122,5 +122,4 @@ spec:
                 secretKeyRef:
                   key: APP_SECRET
                   name: env-secrets-spotlight
-      imagePullSecrets:
-        - name: registry-utmtest
+                  
