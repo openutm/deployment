@@ -34,5 +34,8 @@ override.tf.json
 terraform.rc
 
 *.env
+.env.blender
+.env.spotlight
+.env.passport
 
 .DS_Store

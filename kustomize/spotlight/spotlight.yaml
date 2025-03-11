@@ -81,6 +81,11 @@ spec:
                 secretKeyRef:
                   key: OIDC_DOMAIN
                   name: env-secrets-spotlight
+            - name: SPOTLIGHT_BASE_URL
+              valueFrom:
+                secretKeyRef:
+                  key: SPOTLIGHT_BASE_URL
+                  name: env-secrets-spotlight
             - name: CALLBACK_URL
               valueFrom:
                 secretKeyRef:
