@@ -4,9 +4,8 @@ kind: Kustomization
 namespace: openutm
 
 images:
-  - name: blender
-    newName: registry.digitalocean.com/utmtest/blender:latest
-    # newName: openskiessh/blender:latest
+  - name: blender    
+    newName: openutm/flight-blender:latest
 
 
 generatorOptions:
