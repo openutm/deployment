@@ -39,3 +39,4 @@ terraform.rc
 .env.passport
 
 .DS_Store
+kustomize/passport/oidc.key
