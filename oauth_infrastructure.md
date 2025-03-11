@@ -87,7 +87,7 @@ The section below details the environment file variables and a short comment on 
 | `DSS_BASE_URL` | - |
 | `DSS_AUTH_TOKEN_ENDPOINT` | - |
 | `DSS_AUTH_JWKS_ENDPOINT` | - |
-| `ARGONSERVER_FQDN` | - |
+| `FLIGHTBLENDER_FQDN` | - |
 
 ## **6**
 

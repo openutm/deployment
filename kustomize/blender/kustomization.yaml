@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: openutm
 
 images:
-  - name: blender  
+  - name: blender    
     newName: openutm/flight-blender:latest
 
 
