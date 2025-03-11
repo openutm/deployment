@@ -108,5 +108,4 @@ spec:
       volumes:
       - name: tmp
         emptyDir: {}
-      imagePullSecrets:
-        - name: registry-utmtest
+        

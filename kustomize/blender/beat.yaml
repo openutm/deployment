@@ -102,5 +102,4 @@ spec:
                 secretKeyRef:
                   key: DJANGO_LOG_LEVEL
                   name: env-secrets-blender
-      imagePullSecrets:
-        - name: registry-utmtest
+
