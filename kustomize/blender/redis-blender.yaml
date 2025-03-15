@@ -2,19 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: redis-blender
-  name: redis-blender
+    app: redis-flight-blender
+  name: redis-flight-blender
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: redis-blender
+      app: redis-flight-blender
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: redis-blender
+        app: redis-flight-blender
     spec:
       # securityContext:
       #   fsGroup: 10000
@@ -22,7 +22,7 @@ spec:
       #   runAsNonRoot: true
       #   runAsUser: 10000
       containers:
-        - name: redis-blender
+        - name: redis-flight-blender
           args:
             - redis-server
             - "/redis-config/redis.conf"
@@ -62,7 +62,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: redis-blender-config
+            name: redis-flight-blender-config
             items:
               - key: redis.conf
                 path: redis.conf

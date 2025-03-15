@@ -37,7 +37,7 @@ spec:
           resources: {}
           env:
             - name: POSTGRES_HOST
-              value: "db-blender"
+              value: "db-flight-blender"
             - name: PGDATA
               value: "/var/lib/postgresql/data/pgdata"
             - name: POSTGRES_DB
@@ -66,12 +66,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: FLIGHTBLENDER_FQDN
-                  name: env-secrets-blender
-            - name: BYPASS_AUTH_TOKEN_VERIFICATION
-              valueFrom:
-                secretKeyRef:
-                  key: BYPASS_AUTH_TOKEN_VERIFICATION
-                  name: env-secrets-blender
+                  name: env-secrets-blender                  
             - name: HEARTBEAT_RATE_SECS
               valueFrom:
                 secretKeyRef:
@@ -98,7 +93,7 @@ spec:
                   key: REDIS_PASSWORD
                   name: env-secrets-blender
             - name: REDIS_HOST
-              value: "redis-blender"
+              value: "redis-flight-blender"
             - name: REDIS_PORT
               value: "6379"
             - name: REDIS_BROKER_URL

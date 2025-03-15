@@ -12,7 +12,7 @@ generatorOptions:
   disableNameSuffixHash: true # this flag is used to avoid creation of new configmap, instead it will be modified when file context is changed
 
 configMapGenerator:
-  - name: redis-blender-config
+  - name: redis-flight-blender-config
     files:
       - redis.conf
 
@@ -26,8 +26,8 @@ resources:
   - blender-service.yaml
   - worker.yaml
   - beat.yaml
-  - db-blender.yaml
-  - db-blender-pvc.yaml
-  - db-blender-service.yaml
-  - redis-blender.yaml
-  - redis-blender-service.yaml
+  - db-flight-blender.yaml
+  - db-flight-blender-pvc.yaml
+  - db-flight-blender-service.yaml
+  - redis-flight-blender.yaml
+  - redis-flight-blender-service.yaml
