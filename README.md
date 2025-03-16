@@ -93,7 +93,7 @@ kubectl apply -k kustomize/
 ```bash
 export DO_API_TOKEN=__YOUR TOKEN HERE__
 kubectl create secret generic "digitalocean-dns" \
-    --from-literal=access-token="$DO_API_TOKEN"
+    --from-literal=access-token="$DO_API_TOKEN" --namespace=openutm
 ```
 
 7. Edit `generate-from-templates.sh` and customize the following env variables
@@ -128,11 +128,12 @@ kubectl apply -f certificate-wcard.yaml
 kubectl apply -f ingress.yaml
 ```
 
-It will take some time for all components to settle and acquire  certificates. After that, your apps should be accessible under the following domains with trusted certificates:
+It will take some time for all components to settle and acquire certificates. After that, your apps should be accessible under the following domains with trusted certificates:
 
 - `https://blender.$DOMAIN_NAME`
 - `https://spotlight.$DOMAIN_NAME`
 - `https://passport.$DOMAIN_NAME`
 
 ### Configuring your Installation
+
 - TBC
