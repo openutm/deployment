@@ -40,3 +40,9 @@ terraform.rc
 
 .DS_Store
 kustomize/passport/oidc.key
+
+# Generated files
+certificate-root.yaml
+certificate-wcard.yaml
+ingress.yaml
+issuer.yaml

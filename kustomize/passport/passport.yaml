@@ -82,6 +82,26 @@ spec:
                 secretKeyRef:
                   key: SHOW_ADMIN
                   name: env-secrets-passport
+            - name: ESP_EMAIL_BACKEND
+              valueFrom:
+                secretKeyRef:
+                  key: ESP_EMAIL_BACKEND
+                  name: env-secrets-passport
+            - name: MAILERSEND_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: MAILERSEND_API_TOKEN
+                  name: env-secrets-passport
+            - name: RESEND_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: RESEND_API_KEY
+                  name: env-secrets-passport
+            - name: DEFAULT_FROM_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  key: DEFAULT_FROM_EMAIL
+                  name: env-secrets-passport
             - name: USING_DOCKER_COMPOSE
               valueFrom:
                 secretKeyRef:
