@@ -6,14 +6,8 @@ In this article you will understand how build the environment files for the Open
 - Flight Blender (Backend)
 - Flight Spotlight (Frontend - optional)
 
-## Create the Passport Environment file
 
-Use the [template](env.examples/.passport.env.example) to fill in your values. The file should be self-explanatory some notes for some of the variables are below:
-
-- `OIDC_RSA_PRIVATE_KEY`: For this key you can use a command like `openssl genrsa -out oidc.pem 4096` to generate a private key and paste it there.
-- `DOMAIN_WHITELIST`: This is used to allow logins from the domains listed (and prohibiting disallowed domains) e.g. `openskies.sh;openutm.net;`
-- `ESP_*`: The project uses [anymail](https://anymail.dev/en/stable/) to send transactional emails, you will need to set it up for your domain if you want to enable email verification and other features e.g. reset password via email etc.
-- `JWT_ISSUER_DOMAIN`: Use your domain name if using locally, you can use `http://localhost:8000` or something similar this will be used to populate `iss` claim in the token
+![openutm-flow](images/openutm-data-flow.png)
 
 ## Login and change password for Flight Passport
 
@@ -24,7 +18,7 @@ Go to your Passport URL and then to the `/admin/` endpoint and login using the d
 
 ### Change password
 
-It is recommended that you change the password immediately at this step.
+It is recommended that you change the password immediately at this step. You can also change your admin username.
 
 ![login](images/environment_files_help/step_1b_change_password.jpg)
 
@@ -73,12 +67,6 @@ Go to the Passport Applications section and add a new application. Note that the
 
 You will the Client ID and Client Secret and the Callback URL to fill [Line 22-25](https://github.com/openutm/deployment/blob/main/env.examples/.spotlight.env.example#L22-L25) in the spotlight environment file with the C.
 
-## Populate the rest of the Blender Environment file and Deploy
+## Populate the rest of the Spotlight and Blender Environment files and deploy
 
-Fill in the [proposed URL](https://github.com/openutm/deployment/blob/main/env.examples/.blender.env.example#L15) of Flight Spotlight and redis locations in the file file use the repository to deploy Flight Blender
-
-## Populate the rest of the Spotlight Environment file
-
-Fill in the values for [Redis and Tile 38](https://github.com/openutm/deployment/blob/main/env.examples/.spotlight.env.example#L28-L30) and redeploy.
-
-You should be able to login to the system.
+After deployment, you should be able to login to the system.

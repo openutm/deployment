@@ -4,12 +4,11 @@ A repository to help with deployment of the OpenUTM toolset in your cloud.
 
 ## Steps
 
-This example is based on **DigitalOcean** cloud.
+This example is based on **DigitalOcean** cloud, it uses the `kustomize` tool and kubectl so you can use it with your cloud with it. 
 
 ### Introduction
 
-1. Understand the general architecture of the system by reviewing the [OAUTH Infrastructure](oauth_infrastructure.md) document.
-2. Create your own environment files by reviewing the [constructing environment files](constructing_environment_files.md)
+Understand the general architecture of the system by reviewing the [.env file documentation](env_file_documentation.md) document. That document details the variables that you will have to fill out provide. 
 
 ### Pre-requisites
 
@@ -134,6 +133,6 @@ It will take some time for all components to settle and acquire certificates. Af
 - `https://spotlight.$DOMAIN_NAME`
 - `https://passport.$DOMAIN_NAME`
 
-### Configuring your Installation
+### Configuring Passport and subsequently Blender and Spotlight
 
-- TBC
+The first step is to configure Flight Passport and once Flight Passport is up and running you will have to update the variables for Blender and Spotlight and re-deploy. Use the [constructing](constructing_environment_files.md) to login to Passport to generate variables for Spotlight and Blender
