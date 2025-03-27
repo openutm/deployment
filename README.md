@@ -135,4 +135,4 @@ It will take some time for all components to settle and acquire certificates. Af
 
 ### Configuring Passport and subsequently Blender and Spotlight
 
-The first step is to configure Flight Passport and once Flight Passport is up and running you will have to update the variables for Blender and Spotlight and re-deploy. Use the [constructing](constructing_environment_files.md) to login to Passport to generate variables for Spotlight and Blender
+The first step is to configure Flight Passport and once Flight Passport is up and running you will have to update the variables for Blender and Spotlight and re-deploy. Use the [constructing environment files](constructing_environment_files.md) to login to Passport and generate variables for Spotlight and Blender. Once these are setup, they need to be reapplied to the cluster.
