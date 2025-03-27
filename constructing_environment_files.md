@@ -29,8 +29,8 @@ You will need to create four scopes (two for login / profile information and two
 
 - `openid`
 - `profile`
-- `blender.read`
-- `blender.write`
+- `flightblender.read`
+- `flightblender.write`
 
 ![scopes_list](images/environment_files_help/step_2b_scopes_list.jpg)
 
