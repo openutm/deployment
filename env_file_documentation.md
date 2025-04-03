@@ -61,6 +61,5 @@ Use the [template](env.examples/.spotlight.env.example) to fill in your values.
 - `OIDC_DOMAIN`: This is the OpenID Connect (OIDC) domain for the Passport service. It should be set to `https://passport.$DOMAIN_NAME/o`, where `$DOMAIN_NAME` is your domain name.
 - `CLIENT_ID`: This is the client ID for the Spotlight application to authenticate with the OIDC provider.
 - `CLIENT_SECRET`: This is the client secret for the Spotlight application to authenticate with the OIDC provider. Keep this value confidential.
-- `CALLBACK_URL`: This is the callback URL for the Spotlight application. It should be set to `https://spotlight.$DOMAIN_NAME/auth/callback`, where `$DOMAIN_NAME` is your domain name.
 - `SPOTLIGHT_BASE_URL`: This is the base URL for the Spotlight application. It should be set to `https://spotlight.$DOMAIN_NAME`, where `$DOMAIN_NAME` is your domain name.
 - `REDIS_PASSWORD`: This is the password for the Redis instance used by Spotlight. Ensure that this password is strong and secure.

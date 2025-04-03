@@ -63,7 +63,9 @@ You will need the Client ID and Client Secret and the Passport URL to populate [
 
 Go to the Passport Applications section and add a new application. Note that the Client ID and Client secret are automatically generated and you will need to copy it before saving since the secret is hashed on save.
 
-![create_spotlight_client](images/environment_files_help/step_4b_spotlight_client.jpg)
+![create_spotlight_client_a](images/environment_files_help/step_4b_spotlight_client_a.jpg)
+
+![create_spotlight_client_b](images/environment_files_help/step_4b_spotlight_client_b.jpg)
 
 You will the Client ID and Client Secret and the Callback URL to fill [Line 22-25](https://github.com/openutm/deployment/blob/main/env.examples/.spotlight.env.example#L22-L25) in the spotlight environment file with the C.
 
