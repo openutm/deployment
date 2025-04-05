@@ -6,9 +6,12 @@ A repository to help with deployment of the OpenUTM toolset in your cloud.
 
 This example is based on **DigitalOcean** cloud, it uses the `kustomize` tool and kubectl so you can use it with your cloud with it. 
 
-### Introduction
+### 3-step process
+Please review and understand two documents before startng: 
 
-Understand the general architecture of the system by reviewing the [.env file documentation](env_file_documentation.md) document. That document details the variables that you will have to fill out provide. 
+- Understand the general architecture of the system by reviewing the [.env file documentation](env_file_documentation.md) document. 
+- Once the files are created, you will deploy the systems, since Flight Passport authentication server connects the Backend and front end, after deployment you will have to update the environment files and reapply with updated environment varialbes as detialed in step 3 below.
+- Review the documentation of the [environment files](constructing_environment_files.md)
 
 ### Pre-requisites
 

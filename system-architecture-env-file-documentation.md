@@ -23,7 +23,7 @@ Use the [template](env.examples/.passport.env.example) to fill in your values. T
 - `DJANGO_SECRET_KEY`: This is a secret key used by Django for cryptographic signing. It is crucial for the security of your Django application, as it is used to provide cryptographic signing, and should be kept confidential. Never expose this key in your source code or version control. 
 - `SHOW_ADMIN`: This variable determines whether the Django admin interface should be accessible. Set it to `1` to enable access to the admin interface, or `0` to disable it.
 - `DOMAIN_WHITELIST`: This variable specifies a list of domains that are allowed to log in. Use a semicolon-separated list of domains, such as `openskies.sh;openutm.net`, to permit logins from these domains and prohibit others.
-- `ESP_EMAIL_BACKEND`: The project uses [anymail](https://anymail.dev/en/stable/) to send transactional emails, you will need to set it up for your domain if you want to enable email verification and other features e.g. reset password via email etc. At the moment **Mailersend** and **Resend** are enabled.
+- `ESP_EMAIL_BACKEND`: The project uses [anymail](https://anymail.dev/en/stable/) to send transactional emails, you will need to set it up for your domain if you want to enable email verification and other features e.g. reset password via email etc. At the moment **Mailersend** and **Resend** are enabled. Check your transactional email provider and set the [backend appropriately](https://anymail.dev/en/v13.0/esps/)
 - `JWT_ISSUER_DOMAIN`: Use your domain name if using locally, you can use `http://localhost:9000` or something similar this will be used to populate `iss` claim in the token
 - `ENABLE_DEBUG`: This setting enables DEBUG mode in Django and can be useful for debugging, do not set this as True for prodcution 
 - `DJANGO_SUPERUSER_USERNAME`: This variable sets the username for the Django superuser account. It is required for administrative access to the Django admin interface. Choose a unique and secure username.
@@ -52,7 +52,7 @@ Use the [template](env.examples/.spotlight.env.example) to fill in your values.
 - `BLENDER_BASE_URL`: This is the base URL for the Blender service. It should be set to `http://blender:8000`.
 - `PASSPORT_BLENDER_CLIENT_ID`: This is the client ID for the Blender service to authenticate with the Passport service.
 - `PASSPORT_BLENDER_CLIENT_SECRET`: This is the client secret for the Blender service to authenticate with the Passport service. Keep this value confidential.
-- `PASSPORT_BLENDER_SCOPE`: This variable specifies the scope of access for the Blender service. It should be set to `'blender.read blender.write'`.
+- `PASSPORT_BLENDER_SCOPE`: This variable specifies the scope of access for the Blender service. It should be set to `blender.read blender.write` without any quotes.
 - `PASSPORT_BLENDER_AUDIENCE`: This variable specifies the audience for the Blender service. It should be set to `blender.$DOMAIN_NAME`, where `$DOMAIN_NAME` is your domain name.
 - `BING_KEY`: This is the API key for Bing Maps. It is used for mapping services within the Spotlight application.
 - `MAPBOX_KEY`: This is the API key for Mapbox Maps. It is used for mapping services within the Spotlight application.
