@@ -6,12 +6,21 @@ A repository to help with deployment of the OpenUTM toolset in your cloud.
 
 This example is based on **DigitalOcean** cloud, it uses the `kustomize` tool and kubectl so you can use it with your cloud with it. 
 
-### 3-step process
-Please review and understand two documents before startng: 
+### 🚀 Before You Begin (3-step process)
 
-- Understand the general architecture of the system by reviewing the [.env file documentation](env_file_documentation.md) document. 
-- Once the files are created, you will deploy the systems, since Flight Passport authentication server connects the Backend and front end, after deployment you will have to update the environment files and reapply with updated environment varialbes as detialed in step 3 below.
-- Review the documentation of the [environment files](constructing_environment_files.md)
+To ensure a smooth deployment process, follow these three steps:
+
+1. 📄 **Understand the Architecture**  
+    Familiarize yourself with the system's architecture by reviewing the [.env file documentation](system-architecture-env-file-documentation.md). This will give you a clear picture of how the components interact.
+
+2. 🔑 **Deploy and Connect**  
+    Once the `.env` files are created, deploy the systems. Since Flight Passport acts as the authentication bridge between the backend and frontend, you'll need to update the environment files with the correct variables after deployment. Reapply these updated variables as detailed in Step 3.
+
+3. 🔗 **Link Components**  
+    Check out the [environment files documentation](linking-spotlight-blender-via-passport.md) to properly link Spotlight and Blender via Passport. This step ensures seamless integration between all components.
+
+💬 **Need Help?**  
+If you run into any issues, feel free to reach out to us on Discord. We're here to help!
 
 ### Pre-requisites
 
