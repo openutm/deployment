@@ -54,9 +54,7 @@ Use the [template](env.examples/.spotlight.env.example) to fill in your values.
 - `PASSPORT_BLENDER_CLIENT_SECRET`: This is the client secret for the Blender service to authenticate with the Passport service. Keep this value confidential.
 - `PASSPORT_BLENDER_SCOPE`: This variable specifies the scope of access for the Blender service. It should be set to `blender.read blender.write` without any quotes.
 - `PASSPORT_BLENDER_AUDIENCE`: This variable specifies the audience for the Blender service. It should be set to `blender.$DOMAIN_NAME`, where `$DOMAIN_NAME` is your domain name.
-- `BING_KEY`: This is the API key for Bing Maps. It is used for mapping services within the Spotlight application.
 - `MAPBOX_KEY`: This is the API key for Mapbox Maps. It is used for mapping services within the Spotlight application.
-- `MAPBOX_ID`: This is the Mapbox ID for your Mapbox account.
 - `DEFAULT_APPROVED`: This variable sets the default approval status. Set it to `1` to enable default approval.
 - `OIDC_DOMAIN`: This is the OpenID Connect (OIDC) domain for the Passport service. It should be set to `https://passport.$DOMAIN_NAME/o`, where `$DOMAIN_NAME` is your domain name.
 - `CLIENT_ID`: This is the client ID for the Spotlight application to authenticate with the OIDC provider.

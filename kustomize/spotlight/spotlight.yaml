@@ -39,20 +39,10 @@ spec:
                 secretKeyRef:
                   key: PASSPORT_URL
                   name: env-secrets-spotlight
-            - name: BING_KEY
-              valueFrom:
-                secretKeyRef:
-                  key: BING_KEY
-                  name: env-secrets-spotlight
             - name: MAPBOX_KEY
               valueFrom:
                 secretKeyRef:
                   key: MAPBOX_KEY
-                  name: env-secrets-spotlight
-            - name: MAPBOX_ID
-              valueFrom:
-                secretKeyRef:
-                  key: MAPBOX_ID
                   name: env-secrets-spotlight
             - name: BLENDER_BASE_URL
               value: "http://blender:8000"
