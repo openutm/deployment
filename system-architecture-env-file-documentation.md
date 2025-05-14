@@ -44,6 +44,8 @@ Use the provided [template](env.examples/.blender.env.example) to fill in your v
 - `POSTGRES_USER`: This is the username for the PostgreSQL database used by Blender. Ensure that this username is correct and has the necessary permissions.
 - `POSTGRES_PASSWORD`: This is the password for the PostgreSQL database used by Blender. Ensure that this password is strong and secure.
 - `POSTGRES_DB`: This variable specifies the name of the PostgreSQL database used by Blender. Ensure that this database exists and is accessible.
+- `ENABLE_CONFORMANCE_MONITORING`: This variable enables or disables conformance monitoring tasks for Blender
+- `USSP_NETWORK_ENABLED`: This variable controls whether Flight Blender runs by itself or is connected to a DSS e.g. interuss/dss system to share operational intents.
 
 ## Spotlight Environment File 
 Use the [template](env.examples/.spotlight.env.example) to fill in your values. 

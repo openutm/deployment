@@ -67,6 +67,16 @@ spec:
                 secretKeyRef:
                   key: FLIGHTBLENDER_FQDN
                   name: env-secrets-blender
+            - name: ENABLE_CONFORMANCE_MONITORING
+              valueFrom:
+                secretKeyRef:
+                  key: ENABLE_CONFORMANCE_MONITORING
+                  name: env-secrets-blender
+            - name: USSP_NETWORK_ENABLED
+              valueFrom:
+                secretKeyRef:
+                  key: USSP_NETWORK_ENABLED
+                  name: env-secrets-blender
             - name: BYPASS_AUTH_TOKEN_VERIFICATION
               valueFrom:
                 secretKeyRef:
