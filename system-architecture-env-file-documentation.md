@@ -35,7 +35,7 @@ Use the provided [template](env.examples/.blender.env.example) to fill in your v
 
 - `SECRET_KEY`: This is a secret key used by Blender for cryptographic signing. It is crucial for the security of your application and should be kept confidential. Never expose this key in your source code or version control.
 - `PASSPORT_AUDIENCE`: This variable specifies the audience for the service. It should be set to `blender.$DOMAIN_NAME`, where `$DOMAIN_NAME` is your domain name. This is also the same audience that will be used when verifying tokens in a P2P UTM context. 
-- `PASSPORT_URL`: This is the URL for the Passport service. It should be set to `https://passport.$DOMAIN_NAME`, where `$DOMAIN_NAME` is your domain name.
+- `PASSPORT_JWKS_URL`: This is the URL of the JWKS that will validate the token that is used to access Flight Blender. If you are using Flight Passport, it should be set to `https://passport.$DOMAIN_NAME/.well-known/jwks.json`, where `$DOMAIN_NAME` is your domain name, many auth servers have different ways to share JWKS.
 - `FLIGHTBLENDER_FQDN`: This variable specifies the fully qualified domain name (FQDN) for the Blender service. It should be set to `https://blender.$DOMAIN_NAME`, where `$DOMAIN_NAME` is your domain name.
 - `REDIS_PASSWORD`: This is the password for the Redis instance used by Blender. Ensure that this password is strong and secure.
 - `HEARTBEAT_RATE_SECS`: This variable sets the heartbeat rate in seconds. It determines how frequently the Blender service sends heartbeat signals.

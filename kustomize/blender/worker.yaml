@@ -91,10 +91,10 @@ spec:
                 secretKeyRef:
                   key: PASSPORT_AUDIENCE
                   name: env-secrets-blender
-            - name: PASSPORT_URL
+            - name: PASSPORT_JWKS_URL
               valueFrom:
                 secretKeyRef:
-                  key: PASSPORT_URL
+                  key: PASSPORT_JWKS_URL
                   name: env-secrets-blender
             - name: REDIS_PASSWORD
               valueFrom:
