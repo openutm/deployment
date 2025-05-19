@@ -76,6 +76,41 @@ spec:
                 secretKeyRef:
                   key: BYPASS_AUTH_TOKEN_VERIFICATION
                   name: env-secrets-blender
+            - name: DSS_SELF_AUDIENCE
+              valueFrom:
+                secretKeyRef:
+                  key: DSS_SELF_AUDIENCE
+                  name: env-secrets-blender
+            - name: AUTH_DSS_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  key: AUTH_DSS_CLIENT_ID
+                  name: env-secrets-blender
+            - name: AUTH_DSS_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: AUTH_DSS_CLIENT_SECRET
+                  name: env-secrets-blender
+            - name: DSS_BASE_URL
+              valueFrom:
+                secretKeyRef:
+                  key: DSS_BASE_URL
+                  name: env-secrets-blender
+            - name: DSS_AUTH_URL
+              valueFrom:
+                secretKeyRef:
+                  key: DSS_AUTH_URL
+                  name: env-secrets-blender
+            - name: DSS_AUTH_TOKEN_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  key: DSS_AUTH_TOKEN_ENDPOINT
+                  name: env-secrets-blender
+            - name: DSS_AUTH_JWKS_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  key: DSS_AUTH_JWKS_ENDPOINT
+                  name: env-secrets-blender
             - name: HEARTBEAT_RATE_SECS
               valueFrom:
                 secretKeyRef:

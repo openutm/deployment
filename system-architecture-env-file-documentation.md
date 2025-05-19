@@ -47,6 +47,16 @@ Use the provided [template](env.examples/.blender.env.example) to fill in your v
 - `ENABLE_CONFORMANCE_MONITORING`: This variable enables or disables conformance monitoring tasks for Blender
 - `USSP_NETWORK_ENABLED`: This variable controls whether Flight Blender runs by itself or is connected to a DSS e.g. interuss/dss system to share operational intents.
 
+### DSS configuration variables
+These variables link your Blender instance to a discovery and synchronization service e.g. [interuss/dss](https://www.github.com/interuss/dss)
+- `DSS_SELF_AUDIENCE`: The intended audience for the DSS (Discovery and Synchronization Service) tokens, typically set to the hostname or identifier of the local environment.
+- `AUTH_DSS_CLIENT_ID`: The client ID used for authenticating with the DSS authorization server.
+- `AUTH_DSS_CLIENT_SECRET`: The client secret associated with the DSS client ID, used for secure authentication.
+- `DSS_BASE_URL`: The base URL for accessing the DSS API endpoints.
+- `DSS_AUTH_URL`: The URL of the DSS authorization server, used for obtaining authentication tokens.
+- `DSS_AUTH_TOKEN_ENDPOINT`: The endpoint path on the authorization server for requesting authentication tokens.
+- `DSS_AUTH_JWKS_ENDPOINT`: The endpoint URL for retrieving the JSON Web Key Set (JWKS) used to validate JWT tokens issued by the authorization server.
+
 ## Spotlight Environment File 
 Use the [template](env.examples/.spotlight.env.example) to fill in your values. 
 - `APP_SECRET`: This is a secret key used by the Spotlight application for cryptographic signing. It is crucial for the security of your application and should be kept confidential. Never expose this key in your source code or version control.
