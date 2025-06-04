@@ -107,4 +107,9 @@ spec:
                 secretKeyRef:
                   key: APP_SECRET
                   name: env-secrets-spotlight
+            - name: SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: SECRET
+                  name: env-secrets-spotlight
                   
