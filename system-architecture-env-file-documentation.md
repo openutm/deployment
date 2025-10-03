@@ -30,7 +30,7 @@ Use the [template](env.examples/.passport.env.example) to fill in your values. T
 - `DJANGO_SUPERUSER_EMAIL`: This environment variable is used to set the email address for the Django superuser. It is required when creating a superuser account through automated scripts or during the initial setup of the Django application. Ensure that this email address is valid and accessible, as it will be used for administrative purposes.
 - `DJANGO_SUPERUSER_PASSWORD`: This environment variable is used to set the password for the Django superuser. It is required when creating a superuser account during the deployment process. Ensure that this password is strong and secure to protect the administrative access to your Django application.
 
-## Blender Environemnt File 
+## Blender Environment File 
 Use the provided [template](env.examples/.blender.env.example) to fill in your values.
 
 - `SECRET_KEY`: This is a secret key used by Blender for cryptographic signing. It is crucial for the security of your application and should be kept confidential. Never expose this key in your source code or version control.
@@ -46,6 +46,7 @@ Use the provided [template](env.examples/.blender.env.example) to fill in your v
 - `POSTGRES_DB`: This variable specifies the name of the PostgreSQL database used by Blender. Ensure that this database exists and is accessible.
 - `ENABLE_CONFORMANCE_MONITORING`: This variable enables or disables conformance monitoring tasks for Blender
 - `USSP_NETWORK_ENABLED`: This variable controls whether Flight Blender runs by itself or is connected to a DSS e.g. interuss/dss system to share operational intents.
+- USE_CUSTOM_VOLUME_GENERATION: This variable controls how operational intent volumes are generated, use this to by pass the default operational intent generation
 
 ### DSS configuration variables
 These variables link your Blender instance to a discovery and synchronization service e.g. [interuss/dss](https://www.github.com/interuss/dss). We recommend first setting `USSP_NETWORK_ENABLED` as 0, once you are familiar with how Flight Blender works, then setup the DSS connection. 
