@@ -61,7 +61,7 @@ These variables link your Blender instance to a discovery and synchronization se
 
 ## Spotlight Environment File 
 Use the [template](env.examples/.spotlight.env.example) to fill in your values. 
-- `APP_SECRET`: This is a secret key used by the Spotlight application for cryptographic signing. It is crucial for the security of your application and should be kept confidential. Never expose this key in your source code or version control.
+
 - `SECRET`: The `SECRET` variable is required by the express-openid-connect library to sign and verify session cookies and tokens. It should be a long, random, and secure string to ensure the integrity and confidentiality of authentication sessions. Never share this secret publicly or commit it to version control. For production environments, generate a strong secret and store it securely, such as in environment variables or a secrets manager.
 - `PASSPORT_URL`: This is the URL for the Passport service. It should be set to `https://passport.$DOMAIN_NAME`, where `$DOMAIN_NAME` is your domain name.
 - `BLENDER_BASE_URL`: This is the base URL for the Blender service. It should be set to `http://blender:8000`.

@@ -102,11 +102,6 @@ spec:
                   name: env-secrets-spotlight
             - name: REDIS_URL
               value: "redis://:$(REDIS_PASSWORD)@redis-spotlight:6379"
-            - name: APP_SECRET
-              valueFrom:
-                secretKeyRef:
-                  key: APP_SECRET
-                  name: env-secrets-spotlight
             - name: SECRET
               valueFrom:
                 secretKeyRef:
