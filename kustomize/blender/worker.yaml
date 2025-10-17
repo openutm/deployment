@@ -126,6 +126,11 @@ spec:
                 secretKeyRef:
                   key: PASSPORT_AUDIENCE
                   name: env-secrets-blender
+            - name: ALLOWED_HOSTS
+              valueFrom:
+                secretKeyRef:
+                  key: PASSPORT_AUDIENCE
+                  name: env-secrets-blender
             - name: PASSPORT_URL
               valueFrom:
                 secretKeyRef:
