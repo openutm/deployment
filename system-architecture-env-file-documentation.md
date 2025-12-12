@@ -46,8 +46,8 @@ Use the provided [template](env.examples/.blender.env.example) to fill in your v
 - `POSTGRES_DB`: This variable specifies the name of the PostgreSQL database used by Blender. Ensure that this database exists and is accessible.
 - `ENABLE_CONFORMANCE_MONITORING`: This variable enables or disables conformance monitoring tasks for Blender
 - `USSP_NETWORK_ENABLED`: This variable controls whether Flight Blender runs by itself or is connected to a DSS e.g. interuss/dss system to share operational intents.
-- USE_CUSTOM_VOLUME_GENERATION: This variable controls how operational intent volumes are generated, use this to by pass the default operational intent generation
-- ASTM_F3623_SDSP_CUSTOM_DATA_FUSER_CLASS: This variable enables custom data fusion code to generate Aircraft Tracks for the Surveillance SDSP.
+- `USE_CUSTOM_VOLUME_GENERATION`: This variable controls how operational intent volumes are generated, use this to by pass the default operational intent generation
+- `ASTM_F3623_SDSP_CUSTOM_DATA_FUSER_CLASS`: This variable enables custom data fusion code to generate Aircraft Tracks for the Surveillance SDSP.
 
 ### DSS configuration variables
 These variables link your Blender instance to a discovery and synchronization service e.g. [interuss/dss](https://www.github.com/interuss/dss). We recommend first setting `USSP_NETWORK_ENABLED` as 0, once you are familiar with how Flight Blender works, then setup the DSS connection. 
