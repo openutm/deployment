@@ -37,6 +37,7 @@ You will need to create four scopes (two for login / profile information and two
 ### Create APIs
 
 You will need to create two apis, that define how these scopes will be used in the "application". We will create two APIs one for the login and one for reading and writing data into Flight Blender.
+
 ![create_api_blender_rw](images/environment_files_help/step_3a_create_api_blender_rw.jpg)
 Note the Identifier parameter should be exactly the the same as the domain / sub-domain of Blender since tokens will be issued with `aud` parameter for this domain.
 
@@ -57,7 +58,7 @@ Go to the Passport Applications section and add a new application. Note that the
 
 You can see the grant type and other settings as shown above, make sure you use the Blender RW audience that will enable the `blender.read` and `blender.write` scopes.
 
-You will need the Client ID and Client Secret and the Passport URL to populate [Line 7-11](https://github.com/openutm/deployment/blob/main/env.examples/.spotlight.env.example#L7-L11) in the environment file. The scope should read `blender.read blender.write` and the audience should be `testflight.flightblender.com` or something similar (according to your domain)
+You will need the Client ID and Client Secret and the Passport URL to populate [Line 7-11](https://github.com/openutm/deployment/blob/main/env.examples/.spotlight.env.example#L7-L11) in the environment file. The scope should read `blender.read` `blender.write` and the audience should be `testflight.flightblender.com` or something similar (according to your domain)
 
 ## Create Application for Flight Spotlight Login
 
@@ -69,6 +70,6 @@ Go to the Passport Applications section and add a new application. Note that the
 
 You will the Client ID and Client Secret and the Callback URL to fill [Line 22-25](https://github.com/openutm/deployment/blob/main/env.examples/.spotlight.env.example#L22-L25) in the spotlight environment file with the C.
 
-## Populate the rest of the Spotlight and Blender Environment files and deploy
+### Populate the rest of the Spotlight and Blender Environment files and deploy
 
 After deployment, you should be able to login to the system.
