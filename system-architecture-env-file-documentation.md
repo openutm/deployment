@@ -51,6 +51,13 @@ Use the provided [template](env.examples/.blender.env.example) to fill in your v
 - `DISABLE_JSON_LOGGING`: Set as 0 or 1, to disable JSON logging, JSON logging is useful for production deployments but you may want to disable it for local development
 - `AIR_TRAFFIC_STREAM_TTL_MS`: This variable controls time to live (TTL) for airtraffic in REDIS.
 
+### Plugin extension points
+These variables allow you to override default components in Flight Blender with custom implementations. Each variable takes a dotted Python class path (e.g. `my_module.MyClass`) that is loaded at runtime via the plugin loader. The `FLIGHT_BLENDER_PLUGIN_` prefix is the canonical naming convention; the older variable names (`ASTM_F3623_SDSP_CUSTOM_DATA_FUSER_CLASS`, `USE_CUSTOM_VOLUME_GENERATION`) are kept as fallbacks for backward compatibility.
+
+- `FLIGHT_BLENDER_PLUGIN_TRAFFIC_DATA_FUSER`: Dotted class path to a custom traffic data fuser implementation used by the Surveillance SDSP. Falls back to `ASTM_F3623_SDSP_CUSTOM_DATA_FUSER_CLASS` if not set.
+- `FLIGHT_BLENDER_PLUGIN_VOLUME_4D_GENERATOR`: Dotted class path to a custom 4D volume generator for creating operational intent volumes. Falls back to `CUSTOM_VOLUME_4D_GENERATION_CLASS` if not set.
+- `FLIGHT_BLENDER_PLUGIN_DECONFLICTION_ENGINE`: Dotted class path to a custom deconfliction engine used when evaluating flight declarations for conflicts. Defaults to the built-in `DefaultDeconflictionEngine` if not set.
+
 ### DSS configuration variables
 These variables link your Blender instance to a discovery and synchronization service e.g. [interuss/dss](https://www.github.com/interuss/dss). We recommend first setting `USSP_NETWORK_ENABLED` as 0, once you are familiar with how Flight Blender works, then setup the DSS connection. 
 
