@@ -4,147 +4,126 @@ A repository to help with deployment of the OpenUTM toolset in your cloud.
 
 ## Steps
 
-This example is based on **DigitalOcean** cloud, it uses the `kustomize` tool and kubectl so you can use it with your cloud with it. 
+This example is based on **DigitalOcean** cloud, it uses the `kustomize` tool and `kubectl` so you can use it with your cloud with it.
 
-### 🚀 Before You Begin (3-step process)
+### 🚀 Before You Begin
 
 To ensure a smooth deployment process, follow these three steps:
 
-1. 📄 **Understand the Architecture**  
-    Familiarize yourself with the system's architecture by reviewing the [.env file documentation](system-architecture-env-file-documentation.md). This will give you a clear picture of how the components interact.
+1. 📄 **Understand the Architecture**
+   Familiarize yourself with the system's architecture by reviewing the [.env file documentation](system-architecture-env-file-documentation.md). This will give you a clear picture of how the components interact.
 
-2. 🔑 **Deploy and Connect**  
-    Once the `.env` files are created, deploy the systems. Since Flight Passport acts as the authentication bridge between the backend and frontend, you'll need to update the environment files with the correct variables after deployment. Reapply these updated variables as detailed in Step 3.
+2. 🔑 **Deploy and Connect**
+   Once the `.env` files are created, deploy the systems. Since Flight Passport acts as the authentication bridge between the backend and frontend, you'll need to update the environment files with the correct variables after deployment. Reapply these updated variables as detailed in Step 3.
 
-3. 🔗 **Link Components**  
-    Check out the [environment files documentation](linking-spotlight-blender-via-passport.md) to properly link Spotlight and Blender via Passport. This step ensures seamless integration between all components.
+3. 🔗 **Link Components**
+   Check out the [environment files documentation](linking-spotlight-blender-via-passport.md) to properly link Spotlight and Blender via Passport. This step ensures seamless integration between all components.
 
-💬 **Need Help?**  
+💬 **Need Help?**
 If you run into any issues, feel free to reach out to us on Discord. We're here to help!
 
 ### Pre-requisites
 
 1. Installed and configured `doctl`, [link](https://docs.digitalocean.com/reference/doctl/how-to/install/)
 2. Created Kubernetes Cluster, [link](https://docs.digitalocean.com/products/kubernetes/how-to/create-clusters/)
-3. Created Load Balancer, [link](https://docs.digitalocean.com/products/kubernetes/how-to/add-load-balancers/)
-4. You can connect to your Cluster, [link](https://docs.digitalocean.com/products/kubernetes/how-to/connect-to-cluster/)
-5. Your domain sub zone points to DigitalOcean DNS, [link](https://docs.digitalocean.com/products/networking/dns/getting-started/dns-registrars/)
+3. You can connect to your Cluster, [link](https://docs.digitalocean.com/products/kubernetes/how-to/connect-to-cluster/)
+4. Your domain sub zone points to DigitalOcean DNS, [link](https://docs.digitalocean.com/products/networking/dns/getting-started/dns-registrars/)
+5. `openssl` installed (for generating keys)
 
 ### Your deployment
 
 **NOTE**: We will assume your sub-domain is `test.example.com`, and contact email is `test@example.com` - these need to be customized
 
-1. Create A and CNAME records for your domain on the DigitalOcean NS
+1. Install `caddy-ingress-controller`
 
-```bash
-# SETUP env variables
-export DOMAIN_NAME="test.example.com"
-export ACME_CONTACT_EMAIL="test@example.com"
-export LOAD_BALANCER_IP=$(doctl compute load-balancer list --format IP --no-header)
+    ```bash
+    # SETUP env variables
+    export ACME_CONTACT_EMAIL="test@example.com"
 
-# SETUP A and CNAME
-doctl compute domain records list $DOMAIN_NAME
-doctl compute domain delete $DOMAIN_NAME -f
-doctl compute domain create $DOMAIN_NAME
-doctl compute domain records create $DOMAIN_NAME \
-    --record-type "A" --record-name "$DOMAIN_NAME." \
-    --record-data "$LOAD_BALANCER_IP" \
-    --record-ttl "30"
-doctl compute domain records create $DOMAIN_NAME \
-    --record-type "CNAME" --record-name "*" \
-    --record-data "$DOMAIN_NAME." \
-    --record-ttl "30"
-doctl compute domain records list $DOMAIN_NAME
-```
+    helm repo add caddy-ingress-controller https://caddyserver.github.io/ingress/
+    helm repo update
+    helm install caddy-ingress-controller caddy-ingress-controller/caddy-ingress-controller \
+        --namespace caddy-system \
+        --create-namespace \
+        --version 1.3.0 \
+        --set ingressController.config.email="$ACME_CONTACT_EMAIL" \
+        --set ingressController.config.acmeCA="https://acme-v02.api.letsencrypt.org/directory"
+    ```
 
-2. Install `ingress-nginx`
+2. Create A and CNAME records for your domain on the DigitalOcean NS
 
-```bash
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-helm repo update ingress-nginx
-helm search repo ingress-nginx
-helm install ingress-nginx ingress-nginx/ingress-nginx \
-    --namespace ingress-nginx \
-    --create-namespace
-```
+    **Note**: Wait for the Load Balancer to be assigned an IP address. You can check this with `kubectl get svc -n caddy-system caddy-ingress-controller`.
 
-3. Install `cert-manager`
+    ```bash
+    # SETUP env variables
+    export DOMAIN_NAME="test.example.com"
 
-```bash
-helm repo add jetstack https://charts.jetstack.io
-helm repo update jetstack
-helm search repo jetstack
-helm install cert-manager jetstack/cert-manager \
-    --namespace cert-manager \
-    --create-namespace \
-    --set installCRDs=true
-```
+    # Get the Load Balancer IP from the installed service
+    export LOAD_BALANCER_IP=$(kubectl get svc -n caddy-system caddy-ingress-controller -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 
-4. Edit your `.env` files from `env.examples` folder, and place them in this structure:
+    # SETUP A and CNAME
+    doctl compute domain records list $DOMAIN_NAME
+    doctl compute domain delete $DOMAIN_NAME -f
+    doctl compute domain create $DOMAIN_NAME
+    doctl compute domain records create $DOMAIN_NAME \
+        --record-type "A" --record-name "$DOMAIN_NAME." \
+        --record-data "$LOAD_BALANCER_IP" \
+        --record-ttl "30"
+    doctl compute domain records create $DOMAIN_NAME \
+        --record-type "CNAME" --record-name "*" \
+        --record-data "$DOMAIN_NAME." \
+        --record-ttl "30"
+    doctl compute domain records list $DOMAIN_NAME
+    ```
 
-```bash
-└── kustomize
-    ├── blender
-    │   └── .env.blender
-    ├── passport
-    │   └── .env.passport
-    └── spotlight
-        └── .env.spotlight
-```
+3. Create your `.env` files from the examples:
 
-5. Generate the OIDC key and deploy your applications
+    ```bash
+    cp env.examples/.blender.env.example kustomize/blender/.env.blender
+    cp env.examples/.passport.env.example kustomize/passport/.env.passport
+    cp env.examples/.spotlight.env.example kustomize/spotlight/.env.spotlight
+    ```
 
-```bash
-openssl genrsa -out kustomize/passport/oidc.key 4096
-kubectl apply -k kustomize/
-```
+    Then edit these new files with your specific configuration (database passwords, secrets, etc.).
 
-6. Create personal access token with full access to modify `domain`, [link](https://docs.digitalocean.com/reference/api/create-personal-access-token/), and create kubernetes secret from it
+4. Generate the OIDC key and deploy your applications
 
-```bash
-export DO_API_TOKEN=__YOUR TOKEN HERE__
-kubectl create secret generic "digitalocean-dns" \
-    --from-literal=access-token="$DO_API_TOKEN" --namespace=openutm
-```
+    > **Note:** Blender and Spotlight containers may restart or fail health checks initially until they are linked with valid Passport credentials (see "Configuring Passport" section below).
 
-7. Edit `generate-from-templates.sh` and customize the following env variables
+    ```bash
+    openssl genrsa -out kustomize/passport/oidc.key 4096
+    kubectl apply -k kustomize/
+    ```
 
-```bash
-export DOMAIN_NAME="test.example.com"
-export ACME_CONTACT_EMAIL="test@example.com"
-```
+5. Generate `Ingress` manifest
 
-8. Run the file to generate customized yaml files from templates
+    Export your domain name and run the generation script. This will replace placeholders in `templates/` and create `ingress.yaml`.
 
-```bash
-./generate-from-templates.sh
-```
+    ```bash
+    export DOMAIN_NAME="test.example.com"
+    ./generate-from-templates.sh
+    ```
 
-9. Create `Issuer`
+6. Create `Ingress`
 
-```bash
-kubectl apply -f issuer.yaml
-```
+    ```bash
+    kubectl apply -f ingress.yaml
+    ```
 
-10. Create root and wildcard `Certificate`
+7. Verify the Deployment
 
-```bash
-kubectl apply -f certificate-root.yaml
-kubectl apply -f certificate-wcard.yaml
-```
+    Check that all pods are running and healthy:
 
-11. Create `Ingress`
+    ```bash
+    kubectl get pods -n openutm
+    ```
 
-```bash
-kubectl apply -f ingress.yaml
-```
+    It will take some time for all components to settle and acquire certificates. After that, your apps should be accessible under the following domains with trusted certificates:
 
-It will take some time for all components to settle and acquire certificates. After that, your apps should be accessible under the following domains with trusted certificates:
-
-- `https://blender.$DOMAIN_NAME`
-- `https://spotlight.$DOMAIN_NAME`
-- `https://passport.$DOMAIN_NAME`
+    - `https://blender.$DOMAIN_NAME`
+    - `https://spotlight.$DOMAIN_NAME`
+    - `https://passport.$DOMAIN_NAME`
 
 ### Configuring Passport and subsequently Blender and Spotlight
 
-The first step is to configure Flight Passport and once Flight Passport is up and running you will have to update the variables for Blender and Spotlight and re-deploy. Use the [constructing environment files](constructing_environment_files.md) to login to Passport and generate variables for Spotlight and Blender. Once these are setup, they need to be reapplied to the cluster.
+The first step is to configure Flight Passport and once Flight Passport is up and running you will have to update the variables for Blender and Spotlight and re-deploy. Use the [linking documentation](linking-spotlight-blender-via-passport.md) to login to Passport and generate variables for Spotlight and Blender. Once these are setup, they need to be reapplied to the cluster.

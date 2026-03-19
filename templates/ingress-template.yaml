@@ -3,18 +3,8 @@ kind: Ingress
 metadata:
   name: ingress-apps
   namespace: openutm
-  annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    cert-manager.io/issuer: "letsencrypt-nginx-issuer"
-    acme.cert-manager.io/dns01-edit-in-place: "true"
-  labels:
-    app: nginx
 spec:
-  ingressClassName: nginx
-  tls:
-    - hosts:
-        - "*.${DOMAIN_NAME}"
-      secretName: letsencrypt-nginx-wcard-ingress
+  ingressClassName: caddy
   rules:
     - host: "blender.${DOMAIN_NAME}"
       http:
@@ -53,17 +43,10 @@ metadata:
   name: ingress-root
   namespace: openutm
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    cert-manager.io/issuer: "letsencrypt-nginx-issuer"
-    nginx.ingress.kubernetes.io/permanent-redirect: https://spotlight.${DOMAIN_NAME}
-  labels:
-    app: nginx
+    caddy.ingress.kubernetes.io/config: |
+      redir https://spotlight.${DOMAIN_NAME}{uri} permanent
 spec:
-  ingressClassName: nginx
-  tls:
-    - hosts:
-        - "${DOMAIN_NAME}"
-      secretName: letsencrypt-nginx-root-ingress
+  ingressClassName: caddy
   rules:
     - host: "${DOMAIN_NAME}"
       http:

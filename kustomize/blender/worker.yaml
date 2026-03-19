@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: worker
-          image: blender
+          image: flight-blender
           command:
             - ./entrypoints/with-database/entrypoint-celery.sh
           # imagePullPolicy: IfNotPresent
@@ -32,6 +32,8 @@ spec:
           env:
             - name: POSTGRES_HOST
               value: "db-blender"
+            - name: POSTGRES_PORT
+              value: "5432"
             - name: PGDATA
               value: "/var/lib/postgresql/data/pgdata"
             - name: POSTGRES_DB
@@ -50,7 +52,7 @@ spec:
                   key: POSTGRES_PASSWORD
                   name: env-secrets-blender
             - name: DATABASE_URL
-              value: "pgsql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):5432/$(POSTGRES_DB)"
+              value: "pgsql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):$(POSTGRES_PORT)/$(POSTGRES_DB)"
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
@@ -158,4 +160,3 @@ spec:
       volumes:
       - name: tmp
         emptyDir: {}
-        

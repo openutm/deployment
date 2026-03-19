@@ -34,6 +34,8 @@ spec:
               value: "/var/lib/postgresql/data/pgdata"
             - name: POSTGRES_HOST
               value: "db-blender"
+            - name: POSTGRES_PORT
+              value: "5432"
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
